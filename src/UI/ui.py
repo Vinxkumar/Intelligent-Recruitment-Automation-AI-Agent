@@ -1,12 +1,12 @@
 # from threading import Thread
 import time
-from src.Orchestrator.orchestrator import Orchestratory
+from ..transmitter import dataTransmitter, orchestrator
 import customtkinter as ctk
 
 
 MAIN_WINDOW = None
 # Hiring_Requirements = None
-orchestrator = Orchestratory()
+# orchestrator = Orchestratory()
 class mainWindow:
     def __init__(self):
         global MAIN_WINDOW
@@ -268,16 +268,17 @@ class secWindow:
         Hiring_Requirements= "\n".join(summary_lines)
         self.textBox_status(f"Json Format of the Hiring Requirements:\n{Hiring_Requirements}")
         self.textBox_status("Generating Job Description..../\n")
-        jd = orchestrator.getJD(Hiring_Requirements)
+        status, JD = dataTransmitter(Hiring_Requirements)
         time.sleep(4)
-        self.textBox_status(f"\nJob Description Generated...../\n\nPreview\n\n{jd}")
+        self.textBox_status(f"\nJob Description Generated...../\n")
         self.textBox_status("\nPosting..../")
         time.sleep(2)
-        status = orchestrator.postToTelegram(jd)
+        # status, JD = orchestrator.postToTelegram(status)
         txt = "Error: Failed to Post Job.....!"
         if status :
             txt = "Job posted Sucessfully.....!"
         self.textBox_status(txt)
+        self.textBox_status(f"Preview:\n\n{JD}")
         # optionally close the requirements window
         # self.secWin.destroy()
 

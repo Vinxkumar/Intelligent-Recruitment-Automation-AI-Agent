@@ -19,7 +19,7 @@ class Orchestratory:
         self.JD = job_description
         
         status = self.postToTelegram(self.JD)
-        return status
+        return status, self.JD
     
     def postToTelegram(self, JD):
         status = self.pst.post_message(JD)

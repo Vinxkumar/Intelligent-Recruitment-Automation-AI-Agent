@@ -21,6 +21,10 @@ class CURD:
         self.cur.execute(sql)
         self.connect.commit()
 
+    def delete_Drive(self, drive_name):
+        sql = queries.delete_drive.format(drive_name = drive_name)
+        self.cur.execute(sql)
+        self.connect.commit()
 
 
 

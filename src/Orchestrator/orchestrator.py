@@ -1,6 +1,7 @@
 from ..AIClient.OpenAIClient import OpenAIClient
 from .tasks import generate_job_description
 from ..Post_telegram.post_to_telegram import TelegramPoster
+from ..DataBase.curd import CURD
 # from threading import Thread
 
 class Orchestratory:
@@ -8,6 +9,7 @@ class Orchestratory:
     def __init__(self):
         self.JD = ""
         self.pst = TelegramPoster()
+        self.db = CURD()
 
 
     def getJD(self, hiring_requirements: str):
@@ -15,7 +17,9 @@ class Orchestratory:
         aiClient = OpenAIClient()
         job_description = generate_job_description(aiClient, hiring_requirements)
         self.JD = job_description
-        return self.JD
+        
+        status = self.postToTelegram(self.JD)
+        return status
     
     def postToTelegram(self, JD):
         status = self.pst.post_message(JD)

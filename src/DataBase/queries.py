@@ -16,6 +16,10 @@ update_table_drive_status = """
 update drive set drive_status = {drive_status} where drive_name = {drive_name};
 """
 
+delete_drive = """
+delete from drive where drive_name = {drive_name};
+"""
+
 create_table_recruitment = """
 create table if not exists {table_name} (
     id varchar(6) primary key,

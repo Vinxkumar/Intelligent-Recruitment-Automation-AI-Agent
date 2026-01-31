@@ -57,14 +57,35 @@ class curd:
         self.connect.commit()
     
     def insert_into_table_drive(self, val:tuple):
-        self.create_table_drive()
-        self.cursor.execute(queries.insert_into_drive, val)
-        self.connect.commit()
+        try:
+            self.create_table_drive()
+            self.cursor.execute(queries.insert_into_drive, val)
+            self.connect.commit()
+            return True
+        except Error as e:
+            print("Error: ", e)
         
     def update_table_drive(self, drive_name, drive_status):
-        sql = queries.update_table_drive_status.format(drive_name=drive_name, drive_status = drive_status)
-        self.cursor.execute(sql)
-        self.connect.commit()
+        try:
+            sql = queries.update_table_drive_status.format(
+                drive_name=drive_name, 
+                drive_status = drive_status
+            )
+            self.cursor.execute(sql)
+            self.connect.commit()
+            return True
+        except Error as e:
+            print("Error: ", e)
+            
+    def delete_table_drive(self, drive_name: str):
+        try:
+            sql = queries.delete_drive.format(drive_name = drive_name)
+            self.cursor.execute(sql)
+            self.connect.commit()
+            return True
+        except Error as e:
+            print("Error: ", e)
+            
     
     
 

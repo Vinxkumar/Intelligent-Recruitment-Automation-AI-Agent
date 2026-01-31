@@ -2,89 +2,81 @@ from dotenv import load_dotenv
 import mysql.connector
 from mysql.connector import Error
 import os
-from src.DataBase import queries
 
 load_dotenv()
 
-class connectTOMySQL:
-    def __init__(self):
-        self.host = os.getenv("HOSTNAME")
-        self.database = os.getenv("DATABASE")
-        self.username = os.getenv("USER_NAME")
-        self.port = os.getenv("PORT")
-        self.password = os.getenv("PASSWORD")
-        # try:
-        self.conn = mysql.connector.connect(
-                host = self.host,
-                database = self.database,
-                user = self.username,
-                port = int(self.port) if self.port else None,
-                password = self.password
-        )
 
-        #     if not self.conn.is_connected():
-        #         raise RuntimeError("MySQL connection failed")
-
-        # except Error as e:
-        #     raise RuntimeError(f"MySQL connection error: {e}")
-
-    def get_connection(self):
-         return (
-            mysql.connector.connect(
-                host = self.host,
-                database = self.database,
-                user = self.username,
-                port = int(self.port) if self.port else None,
-                password = self.password
+class Database:
+    def __init__(self) -> None:
+        try:
+            self.conn = mysql.connector.connect(
+                host=os.getenv("HOSTNAME"),
+                user=os.getenv("USER_NAME"),
+                password=os.getenv("PASSWORD"),
+                database=os.getenv("DATABASE"),
+                port=int(os.getenv("PORT", 3306)),
             )
-        )
+            self.cursor = self.conn.cursor()
+        except Error as e:
+            raise RuntimeError(f"MySQL connection failed: {e}")
 
-    def get_cursor(self):
-        return self.conn.cursor()
+    def commit(self):
+        self.conn.commit()
 
     def close(self):
-        if self.conn and self.conn.is_connected():
-            self.conn.close()
+        self.cursor.close()
+        self.conn.close()
+
+
+from src.DataBase.connection import Database
+from src.DataBase import queries
 
 
 class curd:
     def __init__(self):
-        obj = connectTOMySQL()
-        self.connect =obj.get_connection()
-        self.cursor = self.connect.cursor()
+        self.db = Database()
+        self.cursor = self.db.cursor
+
     def create_table_drive(self):
         self.cursor.execute(queries.create_table_drive)
-        self.connect.commit()
-    
-    def insert_into_table_drive(self, val:tuple):
+        self.db.commit()
+
+    def insert_into_table_drive(self, val: tuple) -> bool:
         try:
             self.create_table_drive()
             self.cursor.execute(queries.insert_into_drive, val)
-            self.connect.commit()
+            self.db.commit()
             return True
         except Error as e:
-            print("Error: ", e)
-        
-    def update_table_drive(self, drive_name, drive_status):
+            print("DB Error:", e)
+            return False
+
+    def update_table_drive(self, drive_name, drive_status) -> bool:
         try:
             sql = queries.update_table_drive_status.format(
-                drive_name=drive_name, 
-                drive_status = drive_status
+                drive_name=drive_name,
+                drive_status=drive_status,
             )
             self.cursor.execute(sql)
-            self.connect.commit()
+            self.db.commit()
             return True
         except Error as e:
-            print("Error: ", e)
-            
-    def delete_table_drive(self, drive_name: str):
+            print("DB Error:", e)
+            return False
+
+    def delete_table_drive(self, drive_name: str) -> bool:
         try:
-            sql = queries.delete_drive.format(drive_name = drive_name)
+            sql = queries.delete_drive.format(drive_name=drive_name)
             self.cursor.execute(sql)
-            self.connect.commit()
+            self.db.commit()
             return True
         except Error as e:
-            print("Error: ", e)
+            print("DB Error:", e)
+            return False
+
+    def close(self):
+        self.db.close()
+
             
     
     
@@ -95,13 +87,6 @@ class curd:
 # import mysql.connector
 # import os
 
-# conn = mysql.connector.connect(
-#                 host = "localhost",
-#                 user = "vinxkumar",
-#                 password = "060814",
-#                 database = "recruit",
-#                 port = 3306
-#         )
 
 # load_dotenv()
 

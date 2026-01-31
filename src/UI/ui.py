@@ -3,6 +3,7 @@ import time
 from ..transmitter import dataTransmitter, orchestrator
 import customtkinter as ctk
 
+db = orchestrator.db
 
 MAIN_WINDOW = None
 # Hiring_Requirements = None
@@ -269,6 +270,7 @@ class secWindow:
         self.textBox_status(f"Json Format of the Hiring Requirements:\n{Hiring_Requirements}")
         self.textBox_status("Generating Job Description..../\n")
         status, JD = dataTransmitter(Hiring_Requirements)
+        db.insert_into_table_drive((role, True))
         time.sleep(4)
         self.textBox_status(f"\nJob Description Generated...../\n")
         self.textBox_status("\nPosting..../")

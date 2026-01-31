@@ -2,9 +2,9 @@ create_table_drive = """
 create table if not exists drive (
 
     id int auto_increment primary key,
-    drive_name varchar2(25) not null,
-    drive_status boolean not null default true,
-    created_at = timestamp default current_timestamp
+    drive_name VARCHAR(25) NOT NULL,
+    drive_status BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 """
 

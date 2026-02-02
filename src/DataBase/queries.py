@@ -19,6 +19,9 @@ update drive set drive_status = {drive_status} where drive_name = {drive_name};
 delete_drive = """
 delete from drive where drive_name = {drive_name};
 """
+select_drive = """
+select * from drive;
+"""
 
 create_table_recruitment = """
 create table if not exists {table_name} (
@@ -28,6 +31,8 @@ create table if not exists {table_name} (
     resume_link varchar(2048) not null
 );
 """
+
+
 
 insert_into_recruitment = """
 insert into {table_name} (id, name, email, resume_link) values (%s, %s, %s, %s);

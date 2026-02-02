@@ -1,4 +1,4 @@
-from src.UI.ui import mainWindow
+from src.UI.mainui import mainWindow
 
     
 

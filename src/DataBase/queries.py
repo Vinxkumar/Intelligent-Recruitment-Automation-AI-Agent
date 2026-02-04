@@ -13,7 +13,7 @@ insert_into_drive = """
 """
 
 update_table_drive_status = """
-update drive set drive_status = {drive_status} where drive_name = {drive_name};
+update drive set drive_status = %s where drive_name = %s;
 """
 
 delete_drive = """

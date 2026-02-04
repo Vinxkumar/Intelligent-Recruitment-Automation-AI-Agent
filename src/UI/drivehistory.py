@@ -1,14 +1,13 @@
 import customtkinter as ctk
-from src.DataBase.connection import Database
-from src.DataBase.queries import select_drive
+from src.DataBase.connection import curd
 
 # TODO: Data ...?
-conn = Database().connect()
+conn = curd()
 
 class HiringHistoryWindow:
     def __init__(self):
         self.conn = conn
-        self.cur = conn.cursor(dictionary=True) # type: ignore
+        # self.cur = conn.cursor(dictionary=True) # type: ignore
         self.I = 1
         self.driveHis = ctk.CTk()
         self.driveHis.title("Active Drives")
@@ -37,16 +36,16 @@ class HiringHistoryWindow:
 class PullDrives(HiringHistoryWindow):
     def __init__(self):
         super().__init__()
-        self.cur.execute(select_drive)
-        self.data = self.cur.fetchall()
-        self.drives = {row["id"] :{row["drive_name"]:row["drive_status"]} for row in self.data} #type: ignore
-        self.labels = []
-        self.button = []
+        # self.I = 1
+        # self.i =
+        self.drives = self.conn.select_drive()
+        self.drive_config = {}
+        self.state = []
         # self.displayDrives()\
         self.pullDrivesFromDB()
         
     
-    def displayActiveDrives(self, drive_name):
+    def displayActiveDrives(self, drive_name, drive_status = True):
         self.lbl = ctk.CTkLabel(
                 self.Frame,
                 text=drive_name,
@@ -67,53 +66,51 @@ class PullDrives(HiringHistoryWindow):
                 fg_color="green",
                 corner_radius= 12,
                 hover_color= "red",
+                command=lambda: self.updateDriveStatus(drive_status)
                 # id = self.I
         )
         self.btn.grid(row = self.I, column = 1, padx = 5, pady = 30)
-
-        # self.btn.drive_id = self.I
-        self.labels.append(self.lbl)
-        self.button.append(self.btn)
-        # print(self.button[index].drive_id,self.labels[index].drive_name, self.button[index].status)
-            # self.drive_details.append({drive_name:True})
-        # print(self.drive_details)
+        self.btn.drive_name = self.lbl.cget("text") #type: ignore
         self.I += 1
 
     def pullDrivesFromDB(self):
         for index, (id, drive) in enumerate(self.drives.items()):
             for drive_name, drive_status in drive.items():
-                self.displayActiveDrives(drive_name)
-                if not drive_status:
-                    self.button[index].configure(
-                        text="Disabled",
-                        fg_color = "red",
-                        hover_color = "green",
-                    )
-                    self.button[index].status = False
-                else:
-                    self.button[index].status = True
-                    # print(self.btn.drive_id)
-                # print(self.button[index].drive_id , ": ", self.labels[index].text)
-                self.button[index].drive_id = id
-                self.labels[index].drive_name = drive_name
-                print(self.button[index].drive_id,self.labels[index].drive_name, self.button[index].status)
+                self.displayActiveDrives(drive_name, drive_status)
+                # if not drive_status:
+                #     self.button[index].configure(
+                #         text="Disabled",
+                #         fg_color = "red",
+                #         hover_color = "green",
+                #     )
+                    
 
-    def pull_drives_from_db(self):
-        for index, (id, drive) in enumerate(self.drives.items()):
-            for drive_name, drive_status in drive.items():
-                self.displayActiveDrives(drive_name)
-                if not drive_status:
-                    self.button[index].configure(
-                        text="Disabled",
-                        fg_color = "red",
-                        hover_color = "green",
-                    )
-                    self.button[index].status = False
-                else:
-                    self.button[index].status = True
-                    # print(self.btn.drive_id)
-                # print(self.button[index].drive_id , ": ", self.labels[index].text)
-                self.button[index].drive_id = id
-                self.labels[index].drive_name = drive_name
-        self.rnWin()
+    # def pull_drives_from_db(self):
+    #     for index, (id, drive) in enumerate(self.drives.items()):
+    #         for drive_name, drive_status in drive.items():
+    #             self.displayActiveDrives(drive_name)
+    #             if not drive_status:
+    #                 self.button[index].configure(
+    #                     text="Disabled",
+    #                     fg_color = "red",
+    #                     hover_color = "green",
+    #                 )
+                    
+    #             else:
+    #                 # print(self.btn.drive_id)
+    #             # print(self.button[index].drive_id , ": ", self.labels[index].text)
+    #             self.button[index].drive_id = id
+    #             self.labels[index].drive_name = drive_name
+        # self.rnWin()
+    def updateDriveStatus(self, drive_status):
+        s =  self.conn.update_table_drive(self.btn.drive_name, True) #type: ignore
+        if not drive_status:
+            self.btn.configure(
+               text="Disabled",
+               fg_color = "red",
+               hover_color = "green",
+            )
+
+        PullDrives()
+                    
 

@@ -9,15 +9,23 @@ class Database:
 
     def connect(self):
         
-        return (mysql.connector.connect(
-                host=os.getenv("HOSTNAME"),
-                user=os.getenv("USER_NAME"),
-                password=os.getenv("PASSWORD"),
-                database=os.getenv("DATABASE"),
-                port=int(os.getenv("PORT", 3306)),
-                autocommit = True
+        return ( mysql.connector.connect(
+                host = "localhost",
+                user = "vinxkumar",
+                password = "060814",
+                database = "recruit",
+                port = 3306
             )
         )
+        # return (mysql.connector.connect(
+        #         host=os.getenv("HOSTNAME"),
+        #         user=os.getenv("USER_NAME"),
+        #         password=os.getenv("PASSWORD"),
+        #         database=os.getenv("DATABASE"),
+        #         port=int(os.getenv("PORT", 3306)),
+        #         autocommit = True
+        #     )
+        # )
 
 
 # from src.DataBase.connection import Database
@@ -28,7 +36,7 @@ class curd(Database):
     def __init__(self):
     
         self.conn = self.connect()
-        self.cursor = self.conn.cursor()
+        self.cursor = self.conn.cursor(dictionary=True)
 
     def create_table_drive(self):
         self.cursor.execute(queries.create_table_drive)
@@ -39,6 +47,7 @@ class curd(Database):
             self.create_table_drive()
             self.cursor.execute(queries.insert_into_drive, val)
             self.conn.commit()
+            
             return True
         except Error as e:
             print("DB Error:", e)
@@ -46,11 +55,7 @@ class curd(Database):
 
     def update_table_drive(self, drive_name, drive_status) -> bool:
         try:
-            sql = queries.update_table_drive_status.format(
-                drive_name=drive_name,
-                drive_status=drive_status,
-            )
-            self.cursor.execute(sql)
+            self.cursor.execute(queries.update_table_drive_status, (drive_status, drive_name))
             self.conn.commit()
             return True
         except Error as e:
@@ -66,6 +71,23 @@ class curd(Database):
         except Error as e:
             print("DB Error:", e)
             return False
+    
+    def select_drive(self):
+        try:
+            cur = self.conn.cursor(dictionary=True)
+            cur.execute(queries.select_drive)
+            rows = cur.fetchall()
+
+            drives = {}
+            for row in rows:
+                drives[row["id"]] = {                  #type: ignore 
+                row["drive_name"]: row["drive_status"] #type: ignore
+                } 
+            return drives
+
+        except Error as e:
+            print("DB Error:", e)
+            return {}
 
     def close(self):
         self.conn.close()

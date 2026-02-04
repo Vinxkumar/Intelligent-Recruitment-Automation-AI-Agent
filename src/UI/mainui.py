@@ -272,19 +272,22 @@ class secWindow:
         self.textBox_status(f"Json Format of the Hiring Requirements:\n{Hiring_Requirements}")
         self.textBox_status("Generating Job Description..../\n")
         db.insert_into_table_drive((role, True))
-        status, JD = dataTransmitter(Hiring_Requirements)
+        # TODO: status, JD = dataTransmitter(Hiring_Requirements)
         time.sleep(4)
         self.textBox_status(f"\nJob Description Generated...../\n")
         self.textBox_status("\nPosting..../")
         time.sleep(2)
         # status, JD = orchestrator.postToTelegram(status)
-        txt = "Error: Failed to Post Job.....!"
-        if status :
-            txt = "Job posted Sucessfully.....!"
-        self.textBox_status(txt)
-        self.textBox_status(f"Preview:\n\n{JD}")
-        # optionally close the requirements window
-        # self.secWin.destroy()
+
+
+        # TODO: 
+        # txt = "Error: Failed to Post Job.....!"
+        # if status :
+        #     txt = "Job posted Sucessfully.....!"
+        # self.textBox_status(txt)
+        # self.textBox_status(f"Preview:\n\n{JD}")
+        # # optionally close the requirements window
+        # # self.secWin.destroy()
 
     def textBox_status(self, text: str):
         # append status to main window textbox

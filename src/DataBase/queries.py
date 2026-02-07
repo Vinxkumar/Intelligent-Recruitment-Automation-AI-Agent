@@ -20,7 +20,7 @@ delete_drive = """
 delete from drive where drive_name = {drive_name};
 """
 select_drive = """
-select * from drive;
+select * from drive order by created_at DESC limit 7;
 """
 
 create_table_recruitment = """

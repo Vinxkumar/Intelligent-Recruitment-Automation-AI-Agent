@@ -26,8 +26,8 @@ body {
     margin: 11%;
     padding: 15px 20px 20px 20px;
     border: 2px grey;
-    width: 60%;
-    height: 450px;
+    width: 50%;
+    height: 500px;
     background-color: rgb(15, 36, 36);
 }
 
@@ -47,7 +47,7 @@ body {
     width: 300px;
     border-radius: 15px;
     border: 1px;
-    font-size: 18px;
+    font-size: 20px;
     background-color: black;
     color: wheat;
 }
@@ -58,7 +58,18 @@ body {
     width: 300px;
     border-radius: 15px;
     border: 1px;
-    font-size: 18px;
+    font-size: 20px;
     background-color: black;
     color: wheat;
+}
+
+#submit-button {
+    background-color: #4CAF50;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
 }

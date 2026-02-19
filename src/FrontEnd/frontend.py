@@ -11,8 +11,8 @@ def main():
 
 @app.route('/home', methods=['GET'])
 def home():
-    # return render_template("index.html")
-    return render_template("details.html")
+    return render_template("index.html")
+    # return render_template("details.html")
 
 
 
@@ -23,7 +23,12 @@ def login():
     if verify_user(username, password):
         return redirect('/home')
     else:
-        return redirect('/')
+        return """
+            <script>
+                alert("Invalid credentials. Please try again.");
+                window.location.href = "/";
+            </script>
+        """
 
 
 @app.route('/getDriveDetails', methods=['GET'])
@@ -61,8 +66,8 @@ def datahandler():
 
 @app.route('/log')
 def updatelog(msg = "log console "):
-    return msg + str(datetime.datetime.now())
-  
+    return msg
+
 
 def start_frontend():
     app.run(debug=True)    

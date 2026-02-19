@@ -38,11 +38,28 @@ class curd(Database):
         self.conn = self.connect()
         self.cursor = self.conn.cursor(dictionary=True)
 
+    def create_table_user(self):
+        self.cursor.execute(queries.create_table_user)
+        self.conn.commit()
+    
+    def insert_into_table_user(self, val: tuple) -> bool:    # Expectes (name, username, password)
+        
+        try:
+            self.create_table_user()
+            self.cursor.execute(queries.insert_into_user, val)
+            self.conn.commit()
+            
+            return True
+        except Error as e:
+            print("DB Error:", e)
+            return False
+
     def create_table_drive(self):
         self.cursor.execute(queries.create_table_drive)
         self.conn.commit()
 
-    def insert_into_table_drive(self, val: tuple) -> bool:
+    def insert_into_table_drive(self, val: tuple) -> bool:    # Expectes (drive_name, drive_status)
+        
         try:
             self.create_table_drive()
             self.cursor.execute(queries.insert_into_drive, val)

@@ -1,3 +1,16 @@
+
+create_table_user = """
+create table if not exists user (
+    id int auto_increment primary key,
+    name varchar(15) not null,
+    username varchar(25) not null unique,
+    password varchar(255) not null
+);
+"""
+
+select_table_user = """
+select * from user where username = %s;
+"""
 create_table_drive = """
 create table if not exists drive (
 

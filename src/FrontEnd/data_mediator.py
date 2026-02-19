@@ -7,3 +7,6 @@ def verify_user(username: str, password: str) -> bool:
         return True
     else:
         return False
+    
+def get_drive_details(drive_details: dict):
+    db = curd()

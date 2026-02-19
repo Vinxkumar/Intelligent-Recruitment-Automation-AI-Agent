@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligent AI Recruit Agent</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index_styles.css') }}">
+
+</head>
+
+<body>
+    <h1 id="main-heading">Intelligent AI Recruit Agent</h1>
+    <form method="GET" action="/getDriveDetails">
+        <button type="submit" id="submit-button">Start Drive</button>
+    </form>
+    <textarea id="console-log" readonly></textarea>
+    <script src="{{ url_for('static', filename='js/index_script.js') }}"></script>
+</body>
+
+</html>

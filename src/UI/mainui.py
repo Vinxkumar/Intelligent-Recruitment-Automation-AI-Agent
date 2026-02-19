@@ -1,8 +1,9 @@
-# from threading import Thread
-import time
+from threading import Thread
 from ..transmitter import dataTransmitter, orchestrator
-import customtkinter as ctk
 from src.UI.drivehistory import PullDrives
+
+import customtkinter as ctk
+import time
 
 db = orchestrator.db
 
@@ -14,6 +15,7 @@ class mainWindow:
         global MAIN_WINDOW
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("dark-blue")
+        self.t1 = Thread(target = PullDrives)
 
         self.mainwindow = ctk.CTk()
         self.mainwindow.title("Intelligent Recruitment Automation Agent")
@@ -256,7 +258,8 @@ class secWindow:
         empl_type = self.emptyp.get()
         self.secWin.destroy()
         self.secWin.update()
-        PullDrives().displayActiveDrives(role)
+        t1 = Thread(target = PullDrives().displayActiveDrives(role))
+        t1.start()
 
         summary_lines = [
             f"  Role: {role or 'N/A'}",
@@ -277,6 +280,9 @@ class secWindow:
         self.textBox_status(f"\nJob Description Generated...../\n")
         self.textBox_status("\nPosting..../")
         time.sleep(2)
+
+
+        # TODO:
         # status, JD = orchestrator.postToTelegram(status)
 
 

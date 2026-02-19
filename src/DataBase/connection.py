@@ -54,6 +54,15 @@ class curd(Database):
             print("DB Error:", e)
             return False
 
+    def select_table_user(self, username: str):
+        try:
+            self.cursor.execute(queries.select_table_user, (username,))
+            row = self.cursor.fetchone()
+            return [row["username"], row["password"]] if row else None #type: ignore
+        except Error as e:
+            print("DB Error:", e)
+            return None
+
     def create_table_drive(self):
         self.cursor.execute(queries.create_table_drive)
         self.conn.commit()

@@ -6,7 +6,7 @@ create table if not exists user (
     id int auto_increment primary key,
     name varchar(15) not null,
     username varchar(25) not null unique,
-    password varchar(255) not null
+    password varchar(25) not null
 );
 """
 insert_into_user = """

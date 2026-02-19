@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request 
 from flask import redirect
+from src.FrontEnd.data_mediator import verify_user
 import datetime
 
 app = Flask("__name__")
@@ -18,7 +19,7 @@ def home():
 def login():
     username = request.form['username']
     password = request.form['password']
-    if username=="ad" and password == "ad":
+    if verify_user(username, password):
         return redirect('/home')
     else:
         return redirect('/')
@@ -27,9 +28,6 @@ def login():
 @app.route('/getDriveDetails', methods=['GET'])
 def getWIndow():
     return render_template("details.html")
-
-
-
 
 @app.route('/getdata', methods=['POST'])
 def datahandler():
@@ -59,7 +57,8 @@ def updatelog(msg = "log console "):
     return msg + str(datetime.datetime.now())
   
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# if __name__ == "__main__":
+def start_frontend():
+    app.run(debug=True)    
     
     

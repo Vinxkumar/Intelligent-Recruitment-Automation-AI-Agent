@@ -58,7 +58,7 @@ class curd(Database):
         try:
             self.cursor.execute(queries.select_table_user, (username,))
             row = self.cursor.fetchone()
-            return [row["username"], row["password"]] if row else None #type: ignore
+            return row["password"] if row else None #type: ignore
         except Error as e:
             print("DB Error:", e)
             return None

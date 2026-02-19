@@ -1,0 +1,64 @@
+body {
+    background: linear-gradient(to right,
+            #0E1117,
+            #0D1A63);
+
+}
+
+#main-heading {
+    font-size: 25px;
+    font-weight: bold;
+    font-family: 'Helvetica';
+    color: aliceblue;
+    margin: 30px 30px 30px 95px;
+}
+
+#datagetter {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#formm {
+    border-radius: 25px;
+    margin: 11%;
+    padding: 15px 20px 20px 20px;
+    border: 2px grey;
+    width: 60%;
+    height: 450px;
+    background-color: rgb(15, 36, 36);
+}
+
+#lbl {
+    margin: 15px 30px 15px 95px;
+    padding: 10px 10px 10px 10px;
+    width: 300px;
+    border: 1px;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+}
+
+#txtbox {
+    margin: 15px 30px 15px 95px;
+    padding: 10px 10px 10px 10px;
+    width: 300px;
+    border-radius: 15px;
+    border: 1px;
+    font-size: 18px;
+    background-color: black;
+    color: wheat;
+}
+
+#emp {
+    margin: 15px 30px 15px 95px;
+    padding: 10px 10px 10px 10px;
+    width: 300px;
+    border-radius: 15px;
+    border: 1px;
+    font-size: 18px;
+    background-color: black;
+    color: wheat;
+}

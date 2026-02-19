@@ -12,15 +12,15 @@ class Orchestratory:
         self.db = curd()
 
 
-    def getJD(self, hiring_requirements: str):
+    def getJD(self, hiring_requirements: dict):
         print("Generating Job Desc..../")
         aiClient = OpenAIClient()
         job_description = generate_job_description(aiClient, hiring_requirements)
         self.JD = job_description
         
         status = self.postToTelegram(self.JD)
-        return status, self.JD
-    
+        return status
+   
     def postToTelegram(self, JD):
         status = self.pst.post_message(JD)
         return status == 200

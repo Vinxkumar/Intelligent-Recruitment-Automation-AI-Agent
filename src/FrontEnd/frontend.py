@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request 
 from flask import redirect
-from src.FrontEnd.data_mediator import verify_user
+from src.FrontEnd.data_mediator import verify_user, get_drive_details
 import datetime
 
 app = Flask("__name__")
@@ -11,7 +11,8 @@ def main():
 
 @app.route('/home', methods=['GET'])
 def home():
-    return render_template("index.html")
+    # return render_template("index.html")
+    return render_template("details.html")
 
 
 
@@ -28,7 +29,6 @@ def login():
 @app.route('/getDriveDetails', methods=['GET'])
 def getWIndow():
     return render_template("details.html")
-
 @app.route('/getdata', methods=['POST'])
 def datahandler():
     rolename = request.form['drive_name']
@@ -48,16 +48,22 @@ def datahandler():
         "emp_type": emptype,
         "location": loc
     }
-    print(data)
-
-    return redirect('/')
+    # return redirect('/')
+    if get_drive_details(data):
+        return """
+            <script>
+                alert("Drive posted successfully!");
+                window.location.href = "/getDriveDetails";
+            </script>
+"""
+    else:        
+        return "Failed to post the drive. Please try again."
 
 @app.route('/log')
 def updatelog(msg = "log console "):
     return msg + str(datetime.datetime.now())
   
 
-# if __name__ == "__main__":
 def start_frontend():
     app.run(debug=True)    
     

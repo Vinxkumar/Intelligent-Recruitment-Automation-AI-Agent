@@ -4,15 +4,11 @@ import datetime
 
 app = Flask("__name__")
 
-# global LOG
-# LOG = "Hello"
+
 
 @app.route('/', methods=['GET'])
 def main():
     return render_template("loginPage.html")
-
-
-
 
 @app.route('/home', methods=['GET'])
 def home():
@@ -24,15 +20,10 @@ def home():
 def login():
     username = request.form['username']
     password = request.form['password']
-    if username == "admin" and password == "admin":
+    if username=="ad" and password == "ad":
         return redirect('/home')
     else:
-        return """
-        <script>
-            alert("Invalid username or password. Please try again.");
-            window.history.back(); // Goes back to the login page
-        </script>
-        """
+        return redirect('/')
 
 
 @app.route('/getDriveDetails', methods=['GET'])
@@ -68,9 +59,7 @@ def datahandler():
 @app.route('/log')
 def updatelog(msg = "log console "):
     return msg + str(datetime.datetime.now())
-
-# def runHTML():
-   
+  
 
 if __name__ == "__main__":
     app.run(debug=True)

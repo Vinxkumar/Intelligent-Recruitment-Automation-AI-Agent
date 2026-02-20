@@ -9,23 +9,23 @@ class Database:
 
     def connect(self):
         
-        return ( mysql.connector.connect(
-                host = "localhost",
-                user = "vinxkumar",
-                password = "060814",
-                database = "recruit",
-                port = 3306
-            )
-        )
-        # return (mysql.connector.connect(
-        #         host=os.getenv("HOSTNAME"),
-        #         user=os.getenv("USER_NAME"),
-        #         password=os.getenv("PASSWORD"),
-        #         database=os.getenv("DATABASE"),
-        #         port=int(os.getenv("PORT", 3306)),
-        #         autocommit = True
+        # return ( mysql.connector.connect(
+        #         host = "localhost",
+        #         user = "vinxkumar",
+        #         password = "060814",
+        #         database = "recruit",
+        #         port = 3306
         #     )
         # )
+        return (mysql.connector.connect(
+                host=os.getenv("HOSTNAME"),
+                user=os.getenv("USER_NAME"),
+                password=os.getenv("PASSWORD"),
+                database=os.getenv("DATABASE"),
+                port=int(os.getenv("PORT", 3306)),
+                autocommit = True
+            )
+        )
 
 
 # from src.DataBase.connection import Database
@@ -56,6 +56,7 @@ class curd(Database):
 
     def select_table_user(self, username: str):
         try:
+            self.create_table_user()
             self.cursor.execute(queries.select_table_user, (username,))
             row = self.cursor.fetchone()
             return row["password"] if row else None #type: ignore

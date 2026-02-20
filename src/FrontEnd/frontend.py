@@ -3,7 +3,11 @@ from flask import redirect
 from src.FrontEnd.data_mediator import verify_user, get_drive_details
 import datetime
 
-app = Flask("__name__")
+
+import os
+app = Flask(__name__, template_folder=os.path.join(os.path.dirname(__file__), "templates"))
+
+# app = Flask("__name__", template_folder="templates", static_folder="static")
 
 @app.route('/', methods=['GET'])
 def main():

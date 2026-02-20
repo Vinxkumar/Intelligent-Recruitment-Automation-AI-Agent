@@ -6,6 +6,7 @@ def verify_user(username: str, password: str) -> bool:
     if user_password == password:
         return True
     else:
+        print("Invalid username or password")
         return False
     
 def get_drive_details(drive_details: dict):

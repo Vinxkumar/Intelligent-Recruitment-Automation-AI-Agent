@@ -1,23 +1,66 @@
 alert("Hello, World! This is a test alert from index_script.js.");
 
 function displayDriveDetails() {
-    const driveDetailsDiv = document.getElementById("driveDetails"); // ✅ defined in scope
+    const driveDetailsDiv = document.getElementById("driveDetails");
 
     fetch('/giveDriveDetails')
         .then(response => response.json())
         .then(data => {
-            let htmlContent = "<ul>";
+            let htmlContent = "";
+
             data.forEach(drive => {
-                htmlContent += `<li><strong>${drive.drive_name}</strong>: ${drive.drive_status}</li>`;
+                htmlContent += `
+                    <center>
+                        <tr>
+                            <td>                
+                                <label
+                                style="
+                                    width: 300px;
+                                    height: 40px;
+                                    font-size: 25px; 
+                                    font-family: consolas;
+                                    color:white; 
+                                    padding: 5px; 
+                                    margin: 10px 10px 10px 10px;
+                                "
+                                >
+                                    <strong>${drive.drive_name}</strong>
+                                </label>
+                            </td>
+                            <td>
+                                <label 
+                                style="
+                                    width: 120px;
+                                    height: 40px;
+                                    font-size: 25px; 
+                                    font-family: consolas;
+                                    color:white; 
+                                    padding: 5px; 
+                                    margin: 10px 10px 10px 10px;
+                                ">
+                                    <strong>${drive.drive_status}</strong>
+                                </label>
+                            </td>
+                            <td>
+                                <button name="${drive.drive_name}" id="btn" onclick="handleDrive()">Initiate / Disable</button>
+                            </td>
+                        </tr>
+                    </center>
+                `;
             });
-            htmlContent += "</ul>";
-            driveDetailsDiv.innerHTML = htmlContent;
+            driveDetailsDiv.innerHTML += htmlContent;
         })
         .catch(error => {
             console.error("Error fetching drive details:", error);
             alert("Failed to load drive details. Please try again later.");
             driveDetailsDiv.innerHTML = "<p>Failed to load drive details.</p>";
         });
+}
+
+function handleDrive() {
+    const driveName = document.getElementById("btn").getAttribute("name");
+    alert(`You clicked on drive: ${driveName}`);
+
 }
 
 window.onload = displayDriveDetails;

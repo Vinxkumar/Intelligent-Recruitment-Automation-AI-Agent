@@ -19,10 +19,11 @@ def get_drive_details(drive_details: dict):
 
 def get_drive_list():
     db = curd()
+    stat = ["Diabled", "Active"]
     drive_lists = db.select_drive()
     drivelists = []
     for drive_id, drive_info in drive_lists.items():  
         name, status = list(drive_info.items())[0]
-        drivelists.append({"drive_name": name, "drive_status": status})
+        drivelists.append({"drive_name": name, "drive_status": stat[status]})
     print("Drive Lists:", drivelists) 
     return drivelists 

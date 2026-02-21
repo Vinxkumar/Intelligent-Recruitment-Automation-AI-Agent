@@ -11,8 +11,8 @@ app = Flask(__name__, template_folder=os.path.join(os.path.dirname(__file__), "t
 
 @app.route('/', methods=['GET'])
 def main():
-    # return render_template("loginPage.html")
-    return render_template("index.html")
+    return render_template("loginPage.html")
+    # return render_template("index.html")
 
 
 @app.route('/home', methods=['GET'])
@@ -64,11 +64,16 @@ def datahandler():
         return """
             <script>
                 alert("Drive posted successfully!");
-                window.location.href = "/getDriveDetails";
+                window.location.href = "/home";
             </script>
 """
     else:        
-        return "Failed to post the drive. Please try again."
+        return """
+            <script>
+                alert("Failed to post the drive. Please try again.");
+                window.location.href = "/getDriveDetails";
+            </script>
+"""
 
 
 @app.route('/giveDriveDetails', methods=['GET'])

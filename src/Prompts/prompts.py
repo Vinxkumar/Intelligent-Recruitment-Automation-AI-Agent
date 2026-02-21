@@ -17,7 +17,6 @@ JOB_DESCRIPTION = """
 
     Format the output as follows:
 
-    Job Post
     <LinkedIn Style Job Post>
 
     Job Description

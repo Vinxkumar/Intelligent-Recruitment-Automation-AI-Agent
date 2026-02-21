@@ -38,11 +38,14 @@ body {
 
 #drive-list {
     margin: 30px 30px 30px 30px;
-    padding: 20px 20px;
+    padding: 50px 50px 50px 50px;
     border: 1px;
     display: flex;
     box-shadow: 20px;
     border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: rgba(48, 46, 46, 0.664);
 }
 
@@ -51,4 +54,46 @@ body {
     font-weight: bold;
     color: white;
     padding: 10px 10px;
+}
+
+table {
+    width: 70%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    border-radius: 15px;
+    padding: 10px 10px 10px 10px;
+}
+
+th {
+    background-color: #316133;
+    color: white;
+    font-weight: bold;
+    font-family: 'Consolas';
+    font-size: 20px;
+    padding: 10px 15px;
+    text-align: left;
+    margin: 12px 12px 12px 12px;
+}
+
+td {
+    padding: 10px 15px;
+    margin: 15px 15px 15px 15px;
+    padding: 20px 20px 20px 20px;
+}
+
+tr:hover {
+    background-color: rgba(82, 81, 81, 0.664);
+}
+
+button {
+    padding: 5px 10px;
+    width: 200px;
+    height: 40px;
+    background-color: #008CBA;
+    color: black;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
 }

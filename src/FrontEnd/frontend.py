@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request 
 from flask import redirect
-from src.FrontEnd.data_mediator import verify_user, get_drive_details
+from src.FrontEnd.data_mediator import verify_user, get_drive_details, get_drive_list
 import datetime
 
 
@@ -11,7 +11,9 @@ app = Flask(__name__, template_folder=os.path.join(os.path.dirname(__file__), "t
 
 @app.route('/', methods=['GET'])
 def main():
-    return render_template("loginPage.html")
+    # return render_template("loginPage.html")
+    return render_template("index.html")
+
 
 @app.route('/home', methods=['GET'])
 def home():
@@ -68,10 +70,10 @@ def datahandler():
     else:        
         return "Failed to post the drive. Please try again."
 
-@app.route('/log')
-def updatelog(msg = "log console "):
-    return msg
 
+@app.route('/giveDriveDetails', methods=['GET'])
+def giveDriveDetails():
+    return get_drive_list()
 
 def start_frontend():
     app.run(debug=True)    

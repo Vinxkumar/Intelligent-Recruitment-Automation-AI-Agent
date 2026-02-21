@@ -124,6 +124,34 @@ class curd(Database):
     def close(self):
         self.conn.close()
 
+    def getDriveStatus(self, drive_name:str):
+        try:
+            connect = self.connect()
+            cursor = connect.cursor()
+            cursor.execute(queries.check_Drive_status, (drive_name,))
+            result = cursor.fetchone()
+            print(f"Drive status for {drive_name}: {result[0] if result else 'Not found'}")  #type: ignore
+            return result[0] if result else 'Not found' #type: ignore
+
+        except Error as e:
+            print(f"Error fetching drive status: {e}")
+            return None
+        
+    def insertCandidate(self, table_name:str, candidate_data:tuple):
+        try :
+            drivename = table_name.strip().lower().replace(" ", "_")
+            connect = self.connect()
+            cursor = connect.cursor()
+            cursor.execute(queries.insert_into_recruitment.format(table_name=drivename), candidate_data)
+            return True
+        except Error as e:
+            print(f"Error inserting candidate data: {e}")
+            return False
+        finally:
+            if connect.is_connected():
+                cursor.close()
+                connect.close()
+
             
     
     

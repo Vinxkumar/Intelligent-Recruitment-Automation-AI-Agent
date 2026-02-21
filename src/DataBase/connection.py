@@ -116,6 +116,11 @@ class curd(Database):
             print("DB Error:", e)
             return {}
 
+    def create_table_recruitment(self, table_name: str):
+        sql = queries.create_table_recruitment.format(table_name=table_name)
+        self.cursor.execute(sql)
+        self.conn.commit()
+
     def close(self):
         self.conn.close()
 

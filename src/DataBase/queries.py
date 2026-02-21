@@ -43,13 +43,19 @@ select * from drive order by created_at DESC limit 7;
 
 #? Query to create, insert, update, delete, and select recruitment details 
 create_table_recruitment = """
-create table if not exists {table_name} (
-    id varchar(6) primary key,
-    name varchar(15) not null,
+create table if not exists {table_name}_Candidates (
+    id varchar(35) primary key,
+    name varchar(25) not null,
+    lname varchar(25) not null,
+    phone varchar(15) not null unique,
     email varchar(25) not null unique,
+    dob date not null,
+    address varchar(255) not null,
+    pincode int(6) not null,
+    gender varchar(6) not null,
     resume_link varchar(2048) not null
 );
 """
 insert_into_recruitment = """
-insert into {table_name} (id, name, email, resume_link) values (%s, %s, %s, %s);
+insert into {table_name}_Candidates (id, name, lname, phone, email, dob, address, pincode, gender, resume_link) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
 """

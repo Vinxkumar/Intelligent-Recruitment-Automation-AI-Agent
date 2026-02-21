@@ -1,54 +1,8 @@
+from fileinput import filename
 import os
 from flask import Flask, render_template, request
+from werkzeug.utils import secure_filename
 
-from google.auth.transport.requests import Request
-from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
-from googleapiclient.errors import HttpError
-from googleapiclient.http import MediaFileUpload
-from googleapiclient.discovery import build
-
-SCOPES = ["https://www.googleapis.com/auth/drive.metadata.readonly",
-          "https://www.googleapis.com/auth/drive.file",
-          "https://www.googleapis.com/auth/drive"  
-          
-         ]
-
-class drive:
-    def __init__(self):
-        self.creds = None
-
-        if os.path.exists("token.json"):
-            self.creds = Credentials.from_authorized_user_file(
-                "token.json", SCOPES
-            )
-
-        if not self.creds or not self.creds.valid:
-            if self.creds and self.creds.expired and self.creds.refresh_token:
-                self.creds.refresh(Request())
-            else:
-                flow = InstalledAppFlow.from_client_secrets_file(
-                    "src/Flask/credentials.json", SCOPES
-                )
-                self.creds = flow.run_local_server(port=0)
-
-            with open("token.json", "w") as token:
-                token.write(self.creds.to_json())
-
-    def upload(self):
-        try:
-            service = build("drive", "v3", credentials=self.creds)
-            file_metadata = {
-                "name": "sample.gspread"
-            }
-            # media = MediaFileUpload("sample")
-            file = service.files().create(
-                body = file_metadata, 
-                fields = 'id'
-            ).execute()
-            print(file.get('id'))
-        except HttpError as e:
-            print(e)
 
 app = Flask(__name__)
 
@@ -56,9 +10,48 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-# @app.route('/submit', methods=['POST'])
-# def handler():
-#     return "helloworld"
+@app.route('/submit', methods=['POST'])
+def handler():
+    role = request.form['expertise']
+    gender = request.form['gender']
+    other_role = request.form['other_role']
+    fname = request.form['first_name']
+    lname = request.form['family_name']
+    email = request.form['email']
+    phone = request.form['phone']
+    dob = request.form['dob']
+    address = request.form['address']
+    city = request.form['city']
+    state = request.form['state']
+    pincode = request.form['pincode']
+    resumePDF = request.files['resume']
+    os.makedirs("resumes", exist_ok=True)
+    
+    resume_filename = secure_filename(resumePDF.filename or "resume")
+    resume_path = os.path.join("resumes", resume_filename)
+    resumePDF.save(resume_path)
+    data = {
+        "role": role,
+        "gender": gender,
+        "other_role": other_role,
+        "fname": fname,
+        "lname": lname,
+        "email": email,
+        "phone": phone,
+        "dob": dob,
+        "address": address,
+        "city": city,
+        "state": state,
+        "pincode": pincode,
+        "resume_path": resume_path
+    }
+    print(data)
+    return """
+        <script>
+            alert("Form submitted successfully!");
+            window.location.href = "/";
+        </script>
+"""
 
 if __name__ == "__main__":
     # dirve = drive()

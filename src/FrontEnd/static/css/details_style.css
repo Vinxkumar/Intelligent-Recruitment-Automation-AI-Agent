@@ -11,74 +11,62 @@ body {
     font-weight: bold;
     font-family: 'Helvetica';
     color: aliceblue;
-    margin: clamp(15px, 2.5vw, 30px) clamp(15px, 2.5vw, 30px) clamp(15px, 2.5vw, 30px) clamp(50px, 7vw, 95px);
+    text-align: center;
+    padding: clamp(15px, 2vw, 30px) 0;
+    margin: 0;
 }
 
 #datagetter {
-    margin: 0;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 #formm {
     border-radius: clamp(12px, 2vw, 25px);
-    margin: clamp(20px, 5vw, 11%);
-    padding: clamp(10px, 1.5vw, 20px);
+    padding: clamp(20px, 3vw, 40px);
     border: 2px solid grey;
-    width: clamp(280px, 50%, 700px);
-    height: clamp(350px, 45vh, 500px);
+    width: clamp(280px, 45vw, 600px);
     background-color: rgb(15, 36, 36);
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: stretch;
+    gap: clamp(10px, 1.5vw, 18px);
 }
 
 #lbl {
-    margin: clamp(8px, 1.2vw, 15px) clamp(15px, 2.5vw, 30px) clamp(8px, 1.2vw, 15px) clamp(40px, 7vw, 95px);
-    padding: clamp(6px, 0.8vw, 10px);
-    width: clamp(180px, 25vw, 300px);
     font-size: clamp(14px, 1.8vw, 22px);
     font-weight: bold;
     color: white;
-    border: none;
+    margin: 0;
+    padding: 0;
 }
 
-#txtbox {
-    margin: clamp(8px, 1.2vw, 15px) clamp(15px, 2.5vw, 30px) clamp(8px, 1.2vw, 15px) clamp(40px, 7vw, 95px);
-    padding: clamp(6px, 0.8vw, 10px);
-    width: clamp(180px, 25vw, 300px);
-    border-radius: clamp(8px, 1.2vw, 15px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    font-size: clamp(13px, 1.6vw, 20px);
-    background-color: black;
-    color: wheat;
-    box-sizing: border-box;
-}
-
+#txtbox,
 #emp {
-    margin: clamp(8px, 1.2vw, 15px) clamp(15px, 2.5vw, 30px) clamp(8px, 1.2vw, 15px) clamp(40px, 7vw, 95px);
-    padding: clamp(6px, 0.8vw, 10px);
-    width: clamp(180px, 25vw, 300px);
+    width: 100%;
+    padding: clamp(8px, 1vw, 12px) clamp(10px, 1.2vw, 15px);
     border-radius: clamp(8px, 1.2vw, 15px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    font-size: clamp(13px, 1.6vw, 20px);
+    font-size: clamp(13px, 1.5vw, 20px);
     background-color: black;
     color: wheat;
     box-sizing: border-box;
 }
 
 #submit-button {
-    background-color: #4CAF50;
-    color: black;
-    padding: clamp(6px, 1vw, 10px) clamp(12px, 1.8vw, 20px);
+    width: 100%;
+    padding: clamp(10px, 1.2vw, 14px);
     border: none;
     border-radius: clamp(8px, 1.2vw, 15px);
     cursor: pointer;
-    font-size: clamp(13px, 1.6vw, 20px);
+    font-size: clamp(14px, 1.6vw, 20px);
     font-weight: bold;
-    margin: clamp(8px, 1.2vw, 15px) clamp(15px, 2.5vw, 30px) clamp(8px, 1.2vw, 15px) clamp(40px, 7vw, 95px);
-    width: clamp(120px, 15vw, 200px);
+    background-color: #4CAF50;
+    color: black;
+    margin-top: clamp(5px, 1vw, 10px);
 }

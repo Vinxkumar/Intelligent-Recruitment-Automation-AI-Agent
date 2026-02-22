@@ -4,43 +4,42 @@ body {
     background-position: center;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background-color: #f0f0f0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-
 }
 
 #legend {
-    padding: 30px;
+    padding: clamp(15px, 2.5vw, 30px);
 }
 
 .txtfields {
-    border-radius: 15px;
-    padding: 15px;
+    border-radius: clamp(8px, 1.2vw, 15px);
+    padding: clamp(8px, 1.2vw, 15px);
     background-color: black;
     color: white;
-    font-size: 18px;
+    font-size: clamp(12px, 1.4vw, 18px);
     font-weight: bold;
-
+    width: 100%;
+    box-sizing: border-box;
 }
 
 #login-fieldset {
-    width: 400px;
-    height: 350px;
+    width: clamp(280px, 30vw, 400px);
+    height: clamp(250px, 35vh, 350px);
     color: white;
-    font-size: 20px;
+    font-size: clamp(14px, 1.5vw, 20px);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: blur(20px);
-    border-radius: 18px;
+    border-radius: clamp(10px, 1.4vw, 18px);
     box-shadow: 0 0 60px rgba(0, 0, 0, 0.1);
-    border: 1px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -49,11 +48,13 @@ body {
 }
 
 #login-button {
-    width: 250px;
-    height: 60px;
-    font-size: 22px;
+    width: clamp(160px, 18vw, 250px);
+    height: clamp(40px, 5vh, 60px);
+    font-size: clamp(14px, 1.6vw, 22px);
     color: white;
     font-weight: bold;
-    border-radius: 20px;
+    border-radius: clamp(12px, 1.5vw, 20px);
     background: linear-gradient(to left, goldenrod, rgb(53, 55, 68));
+    cursor: pointer;
+    border: none;
 }

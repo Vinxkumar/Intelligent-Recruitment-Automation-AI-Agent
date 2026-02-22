@@ -1,75 +1,84 @@
 body {
-    background: linear-gradient(to right,
-            #0E1117,
-            #0D1A63);
-
+    background: linear-gradient(to right, #0E1117, #0D1A63);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 #main-heading {
-    font-size: 25px;
+    font-size: clamp(16px, 2vw, 25px);
     font-weight: bold;
     font-family: 'Helvetica';
     color: aliceblue;
-    margin: 30px 30px 30px 95px;
+    margin: clamp(15px, 2.5vw, 30px) clamp(15px, 2.5vw, 30px) clamp(15px, 2.5vw, 30px) clamp(50px, 7vw, 95px);
 }
 
 #datagetter {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 #formm {
-    border-radius: 25px;
-    margin: 11%;
-    padding: 15px 20px 20px 20px;
-    border: 2px grey;
-    width: 50%;
-    height: 500px;
+    border-radius: clamp(12px, 2vw, 25px);
+    margin: clamp(20px, 5vw, 11%);
+    padding: clamp(10px, 1.5vw, 20px);
+    border: 2px solid grey;
+    width: clamp(280px, 50%, 700px);
+    height: clamp(350px, 45vh, 500px);
     background-color: rgb(15, 36, 36);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 #lbl {
-    margin: 15px 30px 15px 95px;
-    padding: 10px 10px 10px 10px;
-    width: 300px;
-    border: 1px;
-    font-size: 22px;
+    margin: clamp(8px, 1.2vw, 15px) clamp(15px, 2.5vw, 30px) clamp(8px, 1.2vw, 15px) clamp(40px, 7vw, 95px);
+    padding: clamp(6px, 0.8vw, 10px);
+    width: clamp(180px, 25vw, 300px);
+    font-size: clamp(14px, 1.8vw, 22px);
     font-weight: bold;
     color: white;
+    border: none;
 }
 
 #txtbox {
-    margin: 15px 30px 15px 95px;
-    padding: 10px 10px 10px 10px;
-    width: 300px;
-    border-radius: 15px;
-    border: 1px;
-    font-size: 20px;
+    margin: clamp(8px, 1.2vw, 15px) clamp(15px, 2.5vw, 30px) clamp(8px, 1.2vw, 15px) clamp(40px, 7vw, 95px);
+    padding: clamp(6px, 0.8vw, 10px);
+    width: clamp(180px, 25vw, 300px);
+    border-radius: clamp(8px, 1.2vw, 15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: clamp(13px, 1.6vw, 20px);
     background-color: black;
     color: wheat;
+    box-sizing: border-box;
 }
 
 #emp {
-    margin: 15px 30px 15px 95px;
-    padding: 10px 10px 10px 10px;
-    width: 300px;
-    border-radius: 15px;
-    border: 1px;
-    font-size: 20px;
+    margin: clamp(8px, 1.2vw, 15px) clamp(15px, 2.5vw, 30px) clamp(8px, 1.2vw, 15px) clamp(40px, 7vw, 95px);
+    padding: clamp(6px, 0.8vw, 10px);
+    width: clamp(180px, 25vw, 300px);
+    border-radius: clamp(8px, 1.2vw, 15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: clamp(13px, 1.6vw, 20px);
     background-color: black;
     color: wheat;
+    box-sizing: border-box;
 }
 
 #submit-button {
     background-color: #4CAF50;
     color: black;
-    padding: 10px 20px;
+    padding: clamp(6px, 1vw, 10px) clamp(12px, 1.8vw, 20px);
     border: none;
-    border-radius: 15px;
+    border-radius: clamp(8px, 1.2vw, 15px);
     cursor: pointer;
-    font-size: 20px;
+    font-size: clamp(13px, 1.6vw, 20px);
     font-weight: bold;
+    margin: clamp(8px, 1.2vw, 15px) clamp(15px, 2.5vw, 30px) clamp(8px, 1.2vw, 15px) clamp(40px, 7vw, 95px);
+    width: clamp(120px, 15vw, 200px);
 }

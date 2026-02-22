@@ -1,67 +1,70 @@
 body {
-    background: linear-gradient(to right,
-            #0E1117,
-            #0D1A63);
-
+    background: linear-gradient(to right, #0E1117, #0D1A63);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 #main-heading {
-    font-size: 60px;
+    font-size: clamp(28px, 4.5vw, 60px);
     font-weight: bold;
     font-family: 'Helvetica';
     color: aliceblue;
-    padding: 30px 30px;
+    padding: clamp(15px, 2.5vw, 30px);
 }
 
 .main-frame {
-    width: 500;
-    height: 500;
+    width: clamp(280px, 40vw, 500px);
+    height: clamp(280px, 40vh, 500px);
     font-family: 'Consolas';
-    font-size: 30px;
-    padding: 10px 10px;
+    font-size: clamp(16px, 2.2vw, 30px);
+    padding: clamp(6px, 1vw, 10px);
     font-weight: bold;
     color: white;
     background-color: rgba(48, 46, 46, 0.664);
+    box-sizing: border-box;
 }
 
 #submit-button {
-    width: 170px;
-    height: 70px;
+    width: clamp(110px, 13vw, 170px);
+    height: clamp(45px, 5.5vh, 70px);
     text-align: center;
-    font-size: 23px;
+    font-size: clamp(14px, 1.8vw, 23px);
     font-weight: bold;
     color: white;
     background-color: green;
-    border-radius: 20px;
-    margin-left: 30px;
+    border-radius: clamp(10px, 1.5vw, 20px);
+    margin-left: clamp(15px, 2.5vw, 30px);
+    cursor: pointer;
+    border: none;
 }
 
 #drive-list {
-    margin: 30px 30px 30px 30px;
-    padding: 50px 50px 50px 50px;
-    border: 1px;
-    display: flex;
-    box-shadow: 20px;
-    border-radius: 20px;
+    margin: clamp(15px, 2.5vw, 30px);
+    padding: clamp(25px, 4vw, 50px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: clamp(10px, 1.5vw, 20px);
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: rgba(48, 46, 46, 0.664);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 #legen {
-    font-size: 30px;
+    font-size: clamp(16px, 2.2vw, 30px);
     font-weight: bold;
     color: white;
-    padding: 10px 10px;
+    padding: clamp(6px, 1vw, 10px);
 }
 
 table {
     width: 70%;
     border-collapse: collapse;
-    margin: 20px 0;
-    border-radius: 15px;
-    padding: 10px 10px 10px 10px;
+    margin: clamp(10px, 1.5vw, 20px) 0;
+    border-radius: clamp(8px, 1.2vw, 15px);
+    padding: clamp(6px, 1vw, 10px);
 }
 
 th {
@@ -69,16 +72,15 @@ th {
     color: white;
     font-weight: bold;
     font-family: 'Consolas';
-    font-size: 20px;
-    padding: 10px 15px;
+    font-size: clamp(12px, 1.5vw, 20px);
+    padding: clamp(6px, 1vw, 15px) clamp(8px, 1.2vw, 15px);
     text-align: left;
-    margin: 12px 12px 12px 12px;
 }
 
 td {
-    padding: 10px 15px;
-    margin: 15px 15px 15px 15px;
-    padding: 20px 20px 20px 20px;
+    padding: clamp(10px, 1.5vw, 20px);
+    color: white;
+    font-size: clamp(12px, 1.2vw, 16px);
 }
 
 tr:hover {
@@ -86,14 +88,14 @@ tr:hover {
 }
 
 button {
-    padding: 5px 10px;
-    width: 200px;
-    height: 40px;
+    padding: clamp(4px, 0.5vw, 5px) clamp(6px, 0.8vw, 10px);
+    width: clamp(120px, 15vw, 200px);
+    height: clamp(30px, 3.5vh, 40px);
     background-color: #008CBA;
     color: black;
     border: none;
-    font-size: 20px;
+    font-size: clamp(13px, 1.5vw, 20px);
     font-weight: bold;
-    border-radius: 10px;
+    border-radius: clamp(6px, 0.8vw, 10px);
     cursor: pointer;
 }

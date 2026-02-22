@@ -152,6 +152,30 @@ class curd(Database):
                 cursor.close()
                 connect.close()
 
+    def selectCandidate(self, table_name:str):
+        try:
+            drivename = table_name.strip().lower().replace(" ", "_")
+            connect = self.connect()
+            cursor = connect.cursor(dictionary=True)
+            cursor.execute(queries.select_recruitment.format(table_name=drivename))
+            rows = cursor.fetchall()
+            candidateData = {}
+            for row in rows:
+                candidateData[row["id"]] = {            #type: ignore
+                    "name": row["name"],                #type: ignore
+                    "lname": row["lname"],              #type: ignore
+                    "phone": row["phone"],              #type: ignore
+                    "email": row["email"],              #type: ignore
+                    "resume_link": row["resume_link"]   #type: ignore
+                }
+            return candidateData
+        except Error as e:
+            print(f"Error fetching candidate data: {e}")
+            return []
+        finally:
+            if connect.is_connected():
+                cursor.close()
+                connect.close()
             
     
     

@@ -8,15 +8,28 @@ load_dotenv()
 class Database:
 
     def connect(self):
-        
-        return ( mysql.connector.connect(
-                host = "localhost",
-                user = "vinxkumar",
-                password = "060814",
-                database = "recruit",
-                port = 3306
+        try:
+            connect = mysql.connector.connect(
+                                host = "localhost",
+                    user = "root",
+                    password = "vinxkumar",
+                    database = "recruit",
+                    port = 3306
             )
-        )
+            if connect.is_connected():
+                print("Connected to MySQL database")
+                return connect
+        except Error as e:
+            print("Error while connecting to MySQL", e)
+            return None
+        # return ( mysql.connector.connect(
+        #         host = "localhost",
+        #         user = "root",
+        #         password = "vinxkumar",
+        #         database = "recruit",
+        #         port = 3306
+        #     )
+        # )
         # return (mysql.connector.connect(
         #         host=os.getenv("HOSTNAME"),
         #         user=os.getenv("USER_NAME"),

@@ -105,6 +105,11 @@ def activeOrInactive():
             "message": "Failed to load drive details."
         }
 
+
+@app.route('/CandidateDetails', methods=['GET'])
+def candidateDetails():
+    return render_template("candidateDetails.html")
+
 def start_frontend():
     app.run(debug=True)    
     

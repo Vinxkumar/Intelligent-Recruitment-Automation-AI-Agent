@@ -8,7 +8,7 @@ def verify_user(username: str, password: str) -> bool:
     if user_password == password:
         return True
     else:
-        print("Invalid username or password")
+        print("Invalid username or password  [LOG][data_mediator.py/FrontEnd]")
         return False
     
 def get_drive_details(drive_details: dict):
@@ -28,11 +28,11 @@ def get_drive_list():
     for drive_id, drive_info in drive_lists.items():  
         name, status = list(drive_info.items())[0]
         drivelists.append({"drive_name": name, "drive_status": stat[status]})
-    print("Drive Lists:", drivelists) 
+    print("Drive Lists:", drivelists, "  [LOG][data_mediator.py/FrontEnd]") 
     return drivelists 
 
 def update_drive_status(drive_name):
     db = curd()
     status = db.SelectDriveStatus(drive_name)
-    print("status: ", status, " --- From datamediator/FrontEnd")
+    print("status: ", status, "  [LOG][data_mediator.py/FrontEnd]")
     return db.update_table_drive(drive_name, True if status==False else False)

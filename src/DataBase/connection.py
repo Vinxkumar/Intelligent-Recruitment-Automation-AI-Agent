@@ -23,10 +23,10 @@ class Database:
             #   autocommit = True
             )
             if connect.is_connected():
-                print("Connected to MySQL database")
+                print("Connected to MySQL database  --- connection.py/DataBase")
                 return connect
         except Error as e:
-            print("Error while connecting to MySQL", e)
+            print("Error while connecting to MySQL", e, " -----connection.py/DataBase")
             return None
 
 from src.DataBase import queries
@@ -51,7 +51,7 @@ class curd(Database):
             
             return True
         except Error as e:
-            print("DB Error:", e)
+            print("DB Error:", e, " ------ connection.py/DataBase")
             return False
 
     def select_table_user(self, username: str):
@@ -61,7 +61,7 @@ class curd(Database):
             row = self.cursor.fetchone()
             return row["password"] if row else None #type: ignore
         except Error as e:
-            print("DB Error:", e)
+            print("DB Error:", e, " ------ connection.py/DataBase")
             return None
 
     def create_table_drive(self):
@@ -77,7 +77,7 @@ class curd(Database):
             
             return True
         except Error as e:
-            print("DB Error:", e)
+            print("DB Error:", e, "------ connection.py/DataBase")
             return False
     
     def SelectDriveStatus(self, drive_name: str) -> bool :
@@ -86,7 +86,7 @@ class curd(Database):
             status = self.cursor.fetchall()
             return status
         except Error as e:
-            print("Error: ", e)
+            print("Error: ", e, "------ connection.py/DataBase")
             return False
 
     def update_table_drive(self, drive_name, drive_status) -> bool:
@@ -95,7 +95,7 @@ class curd(Database):
             self.conn.commit()
             return True
         except Error as e:
-            print("DB Error:", e)
+            print("DB Error:", e, "------ connection.py/DataBase")
             return False
 
     def delete_table_drive(self, drive_name: str) -> bool:
@@ -105,7 +105,7 @@ class curd(Database):
             self.conn.commit()
             return True
         except Error as e:
-            print("DB Error:", e)
+            print("DB Error:", e, "------ connection.py/DataBase")
             return False
     
     def select_drive(self):
@@ -122,7 +122,7 @@ class curd(Database):
             return drives
 
         except Error as e:
-            print("DB Error:", e)
+            print("DB Error:", e, "------ connection.py/DataBase")
             return {}
 
     def create_table_recruitment(self, table_name: str):
@@ -132,19 +132,6 @@ class curd(Database):
 
     def close(self):
         self.conn.close()
-
-    def getDriveStatus(self, drive_name:str):
-        try:
-            connect = self.connect()
-            cursor = connect.cursor()
-            cursor.execute(queries.check_Drive_status, (drive_name,))
-            result = cursor.fetchone()
-            print(f"Drive status for {drive_name}: {result[0] if result else 'Not found'}")  #type: ignore
-            return result[0] if result else 'Not found' #type: ignore
-
-        except Error as e:
-            print(f"Error fetching drive status: {e}")
-            return None
         
     def insertCandidate(self, table_name:str, candidate_data:tuple):
         try :
@@ -154,7 +141,7 @@ class curd(Database):
             cursor.execute(queries.insert_into_recruitment.format(table_name=drivename), candidate_data)
             return True
         except Error as e:
-            print(f"Error inserting candidate data: {e}")
+            print(f"Error inserting candidate data: {e}    ------ connection.py/DataBase")
             return False
         finally:
             if connect.is_connected():
@@ -179,7 +166,7 @@ class curd(Database):
                 }
             return candidateData
         except Error as e:
-            print(f"Error fetching candidate data: {e}")
+            print(f"Error fetching candidate data: {e}   ------ connection.py/DataBase")
             return []
         finally:
             if connect.is_connected():

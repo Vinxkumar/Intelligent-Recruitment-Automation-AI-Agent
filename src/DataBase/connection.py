@@ -28,26 +28,7 @@ class Database:
         except Error as e:
             print("Error while connecting to MySQL", e)
             return None
-        # return ( mysql.connector.connect(
-        #         host = "localhost",
-        #         user = "root",
-        #         password = "vinxkumar",
-        #         database = "recruit",
-        #         port = 3306
-        #     )
-        # )
-        # return (mysql.connector.connect(
-        #         host=os.getenv("HOSTNAME"),
-        #         user=os.getenv("USER_NAME"),
-        #         password=os.getenv("PASSWORD"),
-        #         database=os.getenv("DATABASE"),
-        #         port=int(os.getenv("PORT", 3306)),
-        #         autocommit = True
-        #     )
-        # )
 
-
-# from src.DataBase.connection import Database
 from src.DataBase import queries
 
 
@@ -195,16 +176,3 @@ class curd(Database):
             if connect.is_connected():
                 cursor.close()
                 connect.close()
-            
-    
-    
-
-
-#         self.conn = mysql.connector.connect(
-#                 host = "localhost",
-#                 user = "vinxkumar",
-#                 password = "060814",
-#                 database = "recruit",
-#                 port = 3306
-#         )
-        

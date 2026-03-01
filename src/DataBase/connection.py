@@ -10,17 +10,17 @@ class Database:
     def connect(self):
         try:
             connect = mysql.connector.connect(
-                    host = "localhost",
-                    user = "root",
-                    password = "vinxkumar",
-                    database = "recruit",
-                    port = 3306
-            #   host=os.getenv("HOSTNAME"),
-            #   user=os.getenv("USER_NAME"),
-            #   password=os.getenv("PASSWORD"),
-            #   database=os.getenv("DATABASE"),
-            #   port=3306,
-            #   autocommit = True
+            #         host = "localhost",
+            #         user = "root",
+            #         password = "vinxkumar",
+            #         database = "recruit",
+            #         port = 3306
+              host=os.getenv("HOSTNAME"),
+              user=os.getenv("USER_NAME"),
+              password=os.getenv("PASSWORD"),
+              database=os.getenv("DATABASE"),
+              port=3306,
+              autocommit = True
             )
             if connect.is_connected():
                 print("Connected to MySQL database")
@@ -78,6 +78,15 @@ class curd(Database):
             return True
         except Error as e:
             print("DB Error:", e)
+            return False
+    
+    def SelectDriveStatus(self, drive_name: str) -> bool :
+        try:
+            self.cursor.execute(queries.select_status, (drive_name, ))
+            status = self.cursor.fetchall()
+            return status
+        except Error as e:
+            print("Error: ", e)
             return False
 
     def update_table_drive(self, drive_name, drive_status) -> bool:

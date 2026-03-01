@@ -98,8 +98,8 @@ def activeOrInactive():
 
 @app.route('/CandidateDetails', methods=['POST'])
 def candidateDetails():
-    drive_name = request.json.get("driveName")
-    return render_template("candidateDetails.html", drive_name=drive_name, total_applicants=10)
+    pass
+
 
 def start_frontend():
     app.run(debug=True)    

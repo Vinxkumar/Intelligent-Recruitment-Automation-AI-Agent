@@ -17,7 +17,7 @@ JOB_DESCRIPTION = """
 
     Format the output as follows:
 
-    <LinkedIn Style Job Post>
+    <Job Post> --dont mention the tag <job post> in the output, just the content of the job post
 
     Job Description
     <Professional Job Description>
@@ -32,6 +32,7 @@ JOB_DESCRIPTION = """
     list the following quick facts in bullet points using JSON data. If a field is empty or missing just skip dont show empty fields.
 
     End this with this exact call to action line : "🚀 Intrested ? \n Apply now to join our dynamic team and make a difference!" 
+    https://intelligent-recruitment-automation-ai.onrender.com
 
     Here is the hiring requirements in json format:
     {hiring_requirements}

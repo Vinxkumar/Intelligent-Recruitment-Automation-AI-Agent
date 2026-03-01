@@ -22,7 +22,7 @@ def get_drive_details(drive_details: dict):
 
 def get_drive_list():
     db = curd()
-    stat = ["Diabled", "Active"]
+    stat = ["Disabled", "Active"]
     drive_lists = db.select_drive()
     drivelists = []
     for drive_id, drive_info in drive_lists.items():  
@@ -31,7 +31,7 @@ def get_drive_list():
     print("Drive Lists:", drivelists) 
     return drivelists 
 
-def update_drive_status(drive_name, drive_status):
+def update_drive_status(drive_name):
     db = curd()
-    status = True if drive_status==False else False
-    return db.update_table_drive(drive_name, status)
+    status = db.SelectDriveStatus(drive_name)
+    return db.update_table_drive(drive_name, not(status))

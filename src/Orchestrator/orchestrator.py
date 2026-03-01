@@ -13,7 +13,7 @@ class Orchestratory:
 
 
     def getJD(self, hiring_requirements: dict):
-        print("Generating Job Desc..../")
+        print("Generating Job Desc..../  [LOG][orcestratory.py/Orchestrator]")
         aiClient = OpenAIClient()
         job_description = generate_job_description(aiClient, hiring_requirements)
         self.JD = job_description

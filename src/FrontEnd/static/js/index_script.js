@@ -63,10 +63,12 @@ function displayDriveDetails() {
 
 function handleDrive() {
     const driveName = document.getElementById("btn").getAttribute("name");
+    // const drive_status = document.getElementById("btn").getAttribute()
     fetch('/activeOrInactive', {
         method: 'POST',
         headers: {  'Content-Type': 'application/json' },
-        body: JSON.stringify({driveName})
+        body: JSON.stringify({driveName}),
+        cache: "no-store"
     })
         .then(response => response.json())
         .then(data => {
@@ -85,20 +87,9 @@ function handleDrive() {
 function listCandidates() {
     const driveName = document.getElementById("btn").getAttribute("name");
     alert(`Viewing candidates for drive: ${driveName}`);
-    fetch('/CandidateDetails')
-        .then(response => response.text())
-        .then(html => {
-            document.open();
-            document.write(html);
-            document.close();
-        })
-        .catch(error => {
-            console.error("Error loading candidate details:", error);
-            alert("Failed to load candidate details. Please try again later.");
-        });
+    document.getElementById("candidate-list").hidden = false;
 }
 
 window.onload = displayDriveDetails;
-
 
 

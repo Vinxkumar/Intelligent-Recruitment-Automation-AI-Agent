@@ -83,32 +83,23 @@ def giveDriveDetails():
 
 @app.route('/activeOrInactive', methods=['POST'])
 def activeOrInactive():
-    drivelist = get_drive_list()
     drive_name = request.json.get("driveName")
-    drive_dict = {drive["drive_name"]: drive["drive_status"] for drive in drivelist}
-
-    drive_status = drive_dict.get(drive_name)
-    if drive_status:
-        if update_drive_status(drive_name, drive_status):
-            return {
+    if update_drive_status(drive_name):
+        return {
                 "success": True,
                 "message": "Drive status updated successfully!"
-            }
-        else:
-            return {
+        }
+    else:
+        return {
                 "success": False,
                 "message": "Failed to update drive status."
             }
-    else:
-        return {
-            "success": False,
-            "message": "Failed to load drive details."
-        }
 
 
-@app.route('/CandidateDetails', methods=['GET'])
+@app.route('/CandidateDetails', methods=['POST'])
 def candidateDetails():
-    return render_template("candidateDetails.html")
+    drive_name = request.json.get("driveName")
+    return render_template("candidateDetails.html", drive_name=drive_name, total_applicants=10)
 
 def start_frontend():
     app.run(debug=True)    

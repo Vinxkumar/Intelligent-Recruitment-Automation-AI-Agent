@@ -37,9 +37,11 @@ delete_drive = """
 delete from drive where drive_name = {drive_name};
 """
 select_drive = """
-select * from drive order by created_at DESC limit 7;
+select * from drive order by created_at DESC;
 """
-
+select_status = """
+select drive_status where drive_name = %s;
+"""
 
 #? Query to create, insert, update, delete, and select recruitment details 
 create_table_recruitment = """

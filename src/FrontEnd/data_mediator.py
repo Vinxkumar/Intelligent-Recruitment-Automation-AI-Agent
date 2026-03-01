@@ -30,3 +30,8 @@ def get_drive_list():
         drivelists.append({"drive_name": name, "drive_status": stat[status]})
     print("Drive Lists:", drivelists) 
     return drivelists 
+
+def update_drive_status(drive_name, drive_status):
+    db = curd()
+    status = True if drive_status==False else False
+    return db.update_table_drive(drive_name, status)

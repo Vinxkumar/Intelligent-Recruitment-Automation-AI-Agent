@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request 
 from flask import redirect
-from src.FrontEnd.data_mediator import verify_user, get_drive_details, get_drive_list
+from src.FrontEnd.data_mediator import update_drive_status, verify_user, get_drive_details, get_drive_list
 import datetime
 
 
@@ -40,6 +40,7 @@ def login():
 @app.route('/getDriveDetails', methods=['GET'])
 def getWIndow():
     return render_template("details.html")
+
 @app.route('/getdata', methods=['POST'])
 def datahandler():
     rolename = request.form['drive_name']
@@ -79,6 +80,30 @@ def datahandler():
 @app.route('/giveDriveDetails', methods=['GET'])
 def giveDriveDetails():
     return get_drive_list()
+
+@app.route('/activeOrInactive', methods=['POST'])
+def activeOrInactive():
+    drivelist = get_drive_list()
+    drive_name = request.json.get("driveName")
+    drive_dict = {drive["drive_name"]: drive["drive_status"] for drive in drivelist}
+
+    drive_status = drive_dict.get(drive_name)
+    if drive_status:
+        if update_drive_status(drive_name, drive_status):
+            return {
+                "success": True,
+                "message": "Drive status updated successfully!"
+            }
+        else:
+            return {
+                "success": False,
+                "message": "Failed to update drive status."
+            }
+    else:
+        return {
+            "success": False,
+            "message": "Failed to load drive details."
+        }
 
 def start_frontend():
     app.run(debug=True)    

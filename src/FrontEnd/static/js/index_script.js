@@ -84,7 +84,18 @@ function handleDrive() {
 }
 function listCandidates() {
     const driveName = document.getElementById("btn").getAttribute("name");
-    alert(`You want to view candidates for drive: ${driveName}`);
+    alert(`Viewing candidates for drive: ${driveName}`);
+    fetch('/CandidateDetails')
+        .then(response => response.text())
+        .then(html => {
+            document.open();
+            document.write(html);
+            document.close();
+        })
+        .catch(error => {
+            console.error("Error loading candidate details:", error);
+            alert("Failed to load candidate details. Please try again later.");
+        });
 }
 
 window.onload = displayDriveDetails;

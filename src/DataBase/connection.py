@@ -19,7 +19,7 @@ class Database:
               user=os.getenv("USER_NAME"),
               password=os.getenv("PASSWORD"),
               database=os.getenv("DATABASE"),
-              port=int(os.getenv("PORT", 3306)),
+              port=3306,
               autocommit = True
             )
             if connect.is_connected():

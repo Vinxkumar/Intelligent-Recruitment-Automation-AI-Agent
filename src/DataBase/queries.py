@@ -40,7 +40,7 @@ select_drive = """
 select * from drive order by created_at DESC;
 """
 select_status = """
-select drive_status where drive_name = %s;
+select drive_status from drive where drive_name = %s;
 """
 
 #? Query to create, insert, update, delete, and select recruitment details 

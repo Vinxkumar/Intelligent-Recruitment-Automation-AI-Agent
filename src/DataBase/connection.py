@@ -10,11 +10,17 @@ class Database:
     def connect(self):
         try:
             connect = mysql.connector.connect(
-                                host = "localhost",
-                    user = "root",
-                    password = "vinxkumar",
-                    database = "recruit",
-                    port = 3306
+                    # host = "localhost",
+                    # user = "root",
+                    # password = "vinxkumar",
+                    # database = "recruit",
+                    # port = 3306
+              host=os.getenv("HOSTNAME"),
+              user=os.getenv("USER_NAME"),
+              password=os.getenv("PASSWORD"),
+              database=os.getenv("DATABASE"),
+              port=int(os.getenv("PORT", 3306)),
+              autocommit = True
             )
             if connect.is_connected():
                 print("Connected to MySQL database")

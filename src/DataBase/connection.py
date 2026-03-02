@@ -83,8 +83,8 @@ class curd(Database):
     def SelectDriveStatus(self, drive_name: str) -> bool :
         try:
             self.cursor.execute(queries.select_status, (drive_name, ))
-            status = self.cursor.fetchall()
-            return status
+            status = self.cursor.fetchone()
+            return status["drive_status"] if status else None
         except Error as e:
             print("Error: ", e, "------ connection.py/DataBase")
             return False
@@ -92,6 +92,8 @@ class curd(Database):
     def update_table_drive(self, drive_name, drive_status) -> bool:
         try:
             self.cursor.execute(queries.update_table_drive_status, (drive_status, drive_name))
+            print("Rows affected:", self.cursor.rowcount)
+            print("drive currrent status: ", drive_status)
             self.conn.commit()
             return True
         except Error as e:

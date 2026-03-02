@@ -34,5 +34,6 @@ def get_drive_list():
 def update_drive_status(drive_name):
     db = curd()
     status = db.SelectDriveStatus(drive_name)
+    newStatus = 0 if status == 1 else 1
     print("status: ", status, "  [LOG][data_mediator.py/FrontEnd]")
-    return db.update_table_drive(drive_name, True if status==False else False)
+    return db.update_table_drive(drive_name, newStatus)

@@ -83,7 +83,8 @@ def giveDriveDetails():
 
 @app.route('/activeOrInactive', methods=['POST'])
 def activeOrInactive():
-    drive_name = request.json.get("driveName")
+    data = request.get_json()
+    drive_name = data.get("driveName") if data else None
     if update_drive_status(drive_name):
         return {
                 "success": True,

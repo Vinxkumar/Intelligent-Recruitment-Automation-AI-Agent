@@ -89,7 +89,8 @@ function handleDrive(button) {
 function listCandidates(button) {
     const driveName = button.getAttribute("name");
     alert(`Viewing candidates for drive: ${driveName}`);
-    document.getElementById("candidate-list").hidden = false;
+    const element = document.getElementById("candet");
+    element.classList.remove("hidden");
 }
 
 window.onload = displayDriveDetails;

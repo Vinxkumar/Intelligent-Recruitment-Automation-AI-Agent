@@ -14,17 +14,6 @@ body {
     padding: clamp(15px, 2.5vw, 30px);
 }
 
-.main-frame {
-    width: clamp(280px, 40vw, 500px);
-    height: clamp(280px, 40vh, 500px);
-    font-family: 'Consolas';
-    font-size: clamp(16px, 2.2vw, 30px);
-    padding: clamp(6px, 1vw, 10px);
-    font-weight: bold;
-    color: white;
-    background-color: rgba(48, 46, 46, 0.664);
-    box-sizing: border-box;
-}
 
 #submit-button {
     width: clamp(110px, 13vw, 170px);
@@ -98,4 +87,20 @@ button {
     font-weight: bold;
     border-radius: clamp(6px, 0.8vw, 10px);
     cursor: pointer;
+}
+
+#canndidate-list {
+    margin: clamp(15px, 2.5vw, 30px);
+    padding: clamp(25px, 4vw, 50px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: clamp(10px, 1.5vw, 20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(48, 46, 46, 0.664);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.hidden {
+    display:none;
 }

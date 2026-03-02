@@ -10,7 +10,7 @@ function displayDriveDetails() {
 
             data.forEach(drive => {
                 htmlContent += `
-                    <center>
+                  
                         <tr>
                             <td>                
                                 <label
@@ -42,13 +42,12 @@ function displayDriveDetails() {
                                 </label>
                             </td>
                             <td>
-                                <button name="${drive.drive_name}" id="btn" onclick="listCandidates()">View Candidates</button>
+                                <button name="${drive.drive_name}" onclick="listCandidates(this)">View Candidates</button>
                             </td>
                             <td>
-                                <button name="${drive.drive_name}" id="btn" onclick="handleDrive()">Initiate / Disable</button>
+                                <button name="${drive.drive_name}" onclick="handleDrive(this)">Initiate / Disable</button>
                             </td>
                         </tr>
-                    </center>
                 `;
             });
             driveDetailsDiv.innerHTML += htmlContent;
@@ -61,31 +60,34 @@ function displayDriveDetails() {
         return
 }
 
-function handleDrive() {
-    const driveName = document.getElementById("btn").getAttribute("name");
-    // const drive_status = document.getElementById("btn").getAttribute()
+function handleDrive(button) {
+    console.log("Button clicked");
+    const driveName = button.getAttribute("name");
+    console.log("Drive name:", driveName);
+
     fetch('/activeOrInactive', {
         method: 'POST',
-        headers: {  'Content-Type': 'application/json' },
-        body: JSON.stringify({driveName}),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ driveName: driveName }),
         cache: "no-store"
     })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert("Drive status updated successfully!");
-                window.location.reload(); // Reload the page to reflect changes
-            } else {
-                alert("Failed to update drive status.");
-            }
-        })
-        .catch(error => {
-            console.error("Error updating drive status:", error);
-            alert("An error occurred while updating drive status.");
-        });
+    .then(response => {
+        console.log("Fetch response status:", response.status);
+        return response.json();
+    })
+    .then(data => {
+        console.log("Backend response:", data);
+        if (data.success) {
+            alert("Drive updated");
+            window.location.reload();
+        }
+    })
+    .catch(error => {
+        console.error("Fetch error:", error);
+    });
 }
-function listCandidates() {
-    const driveName = document.getElementById("btn").getAttribute("name");
+function listCandidates(button) {
+    const driveName = button.getAttribute("name");
     alert(`Viewing candidates for drive: ${driveName}`);
     document.getElementById("candidate-list").hidden = false;
 }

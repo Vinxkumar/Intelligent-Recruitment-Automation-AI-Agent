@@ -88,9 +88,119 @@ function handleDrive(button) {
 }
 function listCandidates(button) {
     const driveName = button.getAttribute("name");
+    const candidatesDetails = document.getElementById('candidateDetails')
     alert(`Viewing candidates for drive: ${driveName}`);
     const element = document.getElementById("candet");
     element.classList.remove("hidden");
+    fetch('/CandidateDetails', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ driveName: driveName }),
+        cache: "no-store"
+    })
+        .then(response => response.json())
+        .then(data => {
+            let htmlContent = "";
+
+            data.forEach(candiate => {
+                htmlContent += `
+                  
+                        <tr>
+                            <td>                
+                                <label
+                                style="
+                                    width: 300px;
+                                    height: 40px;
+                                    font-size: 25px; 
+                                    font-family: 'Consolas';
+                                    color:white; 
+                                    padding: 5px; 
+                                    margin: 10px 10px 10px 10px;
+                                "
+                                >
+                                    <strong>${candiate.cand_id}</strong>
+                                </label>
+                            </td>
+                            <td>
+                                <label 
+                                style="
+                                    width: 120px;
+                                    height: 40px;
+                                    font-size: 25px; 
+                                    font-family: 'Consolas';
+                                    color:white; 
+                                    padding: 5px; 
+                                    margin: 10px 10px 10px 10px;
+                                ">
+                                    <strong>${candiate.name}</strong>
+                                </label>
+                            </td>
+                            <td>
+                                <label 
+                                style="
+                                    width: 120px;
+                                    height: 40px;
+                                    font-size: 25px; 
+                                    font-family: 'Consolas';
+                                    color:white; 
+                                    padding: 5px; 
+                                    margin: 10px 10px 10px 10px;
+                                ">
+                                    <strong>${candiate.lname}</strong>
+                                </label>
+                            </td>
+                            <td>
+                                <label 
+                                style="
+                                    width: 120px;
+                                    height: 40px;
+                                    font-size: 25px; 
+                                    font-family: 'Consolas';
+                                    color:white; 
+                                    padding: 5px; 
+                                    margin: 10px 10px 10px 10px;
+                                ">
+                                    <strong>${candiate.phone}</strong>
+                                </label>
+                            </td>
+                            <td>
+                                <label 
+                                style="
+                                    width: 120px;
+                                    height: 40px;
+                                    font-size: 25px; 
+                                    font-family: 'Consolas';
+                                    color:white; 
+                                    padding: 5px; 
+                                    margin: 10px 10px 10px 10px;
+                                ">
+                                    <strong>${candiate.email}</strong>
+                                </label>
+                            </td>
+                            <td>
+                                <label 
+                                style="
+                                    width: 120px;
+                                    height: 40px;
+                                    font-size: 25px; 
+                                    font-family: 'Consolas';
+                                    color:white; 
+                                    padding: 5px; 
+                                    margin: 10px 10px 10px 10px;
+                                ">
+                                    <strong>${candiate.resume_link}</strong>
+                                </label>
+                            </td>
+                        </tr>
+                `;
+            });
+            candidatesDetails.innerHTML += htmlContent;
+        })
+        .catch(error => {
+            console.error("Error fetching drive details:", error);
+            alert("Failed to load drive details. Please try again later.");
+            driveDetailsDiv.innerHTML = "<p>Failed to load drive details.</p>";
+        });
 }
 
 window.onload = displayDriveDetails;

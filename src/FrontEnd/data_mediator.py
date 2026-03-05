@@ -1,6 +1,8 @@
+from flask import jsonify
 from src.DataBase.connection import curd
 from src.Orchestrator.orchestrator import Orchestratory
 from src.DataBase.queries import create_table_recruitment
+# import 
 
 def verify_user(username: str, password: str) -> bool:
     db = curd()
@@ -37,3 +39,19 @@ def update_drive_status(drive_name):
     newStatus = 0 if status == 1 else 1
     print("status: ", status, "  [LOG][data_mediator.py/FrontEnd]")
     return db.update_table_drive(drive_name, newStatus)
+
+def getCandidates(drive_name: str):
+    db = curd()
+    candi = db.selectCandidate(drive_name)
+    candidates = []
+    for cand_id, can_info in candi.items():
+        candidates.append({
+            "cand_id": cand_id,
+            "name": can_info["name"],
+            "lname": can_info["lname"],
+            "phone": can_info["phone"],
+            "email": can_info["email"],
+            "resume_link": can_info["resume_link"]
+        })
+    print(str(candidates) + "\n [LOG][data_mediator.py/FrontEnd]")
+    return jsonify(candidates)  # make sure to return JSON for Flask

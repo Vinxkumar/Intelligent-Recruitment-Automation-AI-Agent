@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request 
 from flask import redirect
-from src.FrontEnd.data_mediator import update_drive_status, verify_user, get_drive_details, get_drive_list
+from src.FrontEnd.data_mediator import update_drive_status, verify_user, get_drive_details, get_drive_list, getCandidates
 import datetime
 
 
@@ -97,9 +97,11 @@ def activeOrInactive():
             }
 
 
-@app.route('/CandidateDetails', methods=['POST'])
+@app.route('/CandidateDetails', methods=['GET','POST'])
 def candidateDetails():
-    pass
+    data = request.get_json(force=True)
+    drive_name = data.get("driveName") if data else None
+    return getCandidates(drive_name) 
 
 
 def start_frontend():

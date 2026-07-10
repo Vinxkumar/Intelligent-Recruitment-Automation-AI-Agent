@@ -1,9 +1,0 @@
-.env
-.idea/
-.vscode/
-venv/
-src/Flask/*.json
-*.json
-*__pycache__/
-*__init__.py
-

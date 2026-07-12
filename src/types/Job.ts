@@ -4,6 +4,7 @@ interface TechStack {
 }
 
 export interface Job {
+    id?: number,
     title: string,
     companyName: string,
     companyEmail: string,
@@ -11,7 +12,7 @@ export interface Job {
     mQualification?: string,
     jd?:string,
     techStack: TechStack[],
-    experienceRange: string,
+    experience: "FRESHER" | "JOUINUER" | "INTERMEDIATE" | "SENIOR",
     location?: string,
     compensation?: string,
     empType: "FULL_TIME" | "PART_TIME" | "INTERNSHIP" | "CONTRACT",

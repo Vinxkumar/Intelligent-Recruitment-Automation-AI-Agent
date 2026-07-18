@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: "DynaPuff";
+  src: url("./assets/font/DynaPuff-VariableFont_wdth,wght.woff2") format("woff2");
+  font-weight: 400 700; /* range, not a single value */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("./assets/font/Poppins-Medium.woff2");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+@theme {
+  --font-dynapuff: "DynaPuff", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+}

@@ -1,7 +1,7 @@
 import getJobs from "@/services/getJobs";
 import { useEffect, useState } from "react";
 import type { Job } from "@/types/Job";
-
+import JobCard from "@/components/JobCard";
 
 import Loader from "../assets/ui/Loader"
 
@@ -30,7 +30,7 @@ const Home = () => {
 
   if (loading) {
     return (
-      <div className="w-full h-full min-h-[50vh] flex items-center justify-center">
+      <div className="w-full h-full min-h-[50vh] bg-[#0d1117] flex items-center justify-center">
         <div className=" text-lg font-medium text-gray-500">
           <Loader/>
         </div>
@@ -50,7 +50,7 @@ const Home = () => {
 
 
   return (
-    <div className="w-full  h-full">
+    <div className="w-full p-[3%] h-full bg-[#0d1117] ">
 
       {loading && (
               <div className="w-full h-full min-h-[50vh] flex items-center justify-center">
@@ -62,13 +62,9 @@ const Home = () => {
 
       <div className="grid grid-cols-3 gap-4">
         {job &&
-          job.map((jb, idx) => (
-            <div key={idx} className="border p-4 rounded-lg">
-              <h2>{jb.title}</h2>
-              <p>{jb.companyName}</p>
-              <p>{jb.companyEmail}</p>
-              <p>{jb.pQualification}</p>
-              <p>{jb.techStack}</p>
+          job.map((jb) => (
+            <div key={jb.id} onClick={()=>alert(jb.title)} className="cursor-pointer" >
+              <JobCard {...jb}/>
             </div>
           ))}
       </div>

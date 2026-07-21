@@ -8,13 +8,16 @@ import { useNavigate } from "react-router-dom";
 type navButtonType = {
     name: string
     onClick?: ()=>void;
+    navigate?: string;
 }
 
 
 
 const navButtonContext: navButtonType[] = [
-    {name: "home",},
-    {name: "opportunities",},
+    {
+        name: "home",
+    },
+    {name: "opportunities", navigate:"/opportunities"},
     {name: "profile",},
 
 ]
@@ -56,7 +59,9 @@ const NavBar = () => {
 
                     {navButtonContext.map((itm, idx) => (
                         <div key={idx} className="flex group relative items-center justify-center h-full w-[20%] flex-col gap-2">
-                            <button  className={`absolute hover:translate-y-1 transition-all ease-in-out h-full cursor-pointer font-poppins text-md  ${inView==idx?"translate-y-1":"translate-y-0"}`} onClick={()=>setInView(idx)}>{itm.name}</button>
+                            <button  className={`absolute hover:translate-y-1 transition-all ease-in-out h-full cursor-pointer font-poppins text-md  ${inView==idx?"translate-y-1":"translate-y-0"}`} onClick={()=>{setInView(idx);
+                                navigate(itm.navigate? itm.navigate: "");
+                            }}>{itm.name}</button>
                                 <span
                                     className={`absolute bottom-0 left-0 h-0.5 w-full bg-white origin-center transition-transform duration-300 ${
                                         inView === idx

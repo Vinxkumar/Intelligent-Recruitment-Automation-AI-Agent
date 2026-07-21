@@ -7,7 +7,7 @@ export interface Job {
   mQualification?: string;
   jd?: string;
   techStack: string[];              // was TechStack[]
-  experience: "FRESHER" | "JOUINUER" | "INTERMEDIATE" | "SENIOR";
+  expRange: "FRESHER" | "JUNIOR" | "INTERMEDIATE" | "SENIOR";
   location?: string;
   compensation?: string;
   empType: "FULL_TIME" | "PART_TIME" | "INTERNSHIP" | "CONTRACT";

@@ -42,8 +42,8 @@ const JobViewModal = ({
     <Dialog>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
 
-      <DialogContent className="max-w-lg">
-        <DialogHeader>
+      <DialogContent className="flex max-h-[85vh] max-w-lg flex-col p-0">
+        <DialogHeader className="px-6 pt-6">
           <DialogTitle className="text-xl">{title}</DialogTitle>
           <DialogDescription>
             {companyName}
@@ -51,7 +51,7 @@ const JobViewModal = ({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex flex-col gap-3 text-sm">
+        <div className="flex flex-1 flex-col gap-3 overflow-y-auto px-6 py-4 text-sm">
           <div className="flex gap-4 flex-wrap">
             <span>
               <strong>Compensation:</strong> ₹{compensation}/yr
@@ -114,7 +114,7 @@ const JobViewModal = ({
           )}
         </div>
 
-        <DialogFooter className="gap-2">
+        <DialogFooter className="gap-2 border-t px-6 py-4">
           <DialogClose asChild>
             <Button variant="outline" className="cursor-pointer">
               Close

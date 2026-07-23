@@ -44,8 +44,8 @@ const jobFormSchema = z.object({
   companyName: z.string().min(2, "Company name is required"),
   companyEmail: z.string().email("Enter a valid email"),
   pQualification: z.string().min(1, "Preferred qualification is required"),
-  mQualification: z.string().optional(),
-  jd: z.string().optional(),
+mQualification: z.string().min(1, "Minimum qualification is required"),
+jd: z.string().optional(),
   // Raw comma-separated input from the textarea; split into string[] in
   // onSubmit before being sent, to match the backend's List<String>.
   techStackInput: z.string().min(1, "Tech stack is required"),
@@ -125,7 +125,7 @@ const NewJobForm = ({ onSubmitJob }: NewJobFormProps) => {
       companyName: data.companyName,
       companyEmail: data.companyEmail,
       pQualification: data.pQualification,
-      mQualification: data.mQualification || undefined,
+      mQualification: data.mQualification,
       jd: data.jd || undefined,
       techStack: data.techStackInput
         .split(",")
@@ -200,6 +200,7 @@ const NewJobForm = ({ onSubmitJob }: NewJobFormProps) => {
                     id="companyName"
                     placeholder="Google LLC"
                     {...register("companyName")}
+                    required
                   />
                   {errors.companyName && (
                     <p className="text-red-600 text-sm mt-1">
@@ -217,6 +218,8 @@ const NewJobForm = ({ onSubmitJob }: NewJobFormProps) => {
                     type="email"
                     placeholder="m@example.com"
                     {...register("companyEmail")}
+                    required
+
                   />
                   {errors.companyEmail && (
                     <p className="text-red-600 text-sm mt-1">
@@ -284,7 +287,14 @@ const NewJobForm = ({ onSubmitJob }: NewJobFormProps) => {
                     placeholder="4-year Bachelor of Technology (B.Tech) or Bachelor of Science (B.Sc) in Computer Science"
                     rows={6}
                     {...register("mQualification")}
+                    required
+
                   />
+                    {errors.mQualification && (
+    <p className="text-red-600 text-sm mt-1">
+      {errors.mQualification.message}
+    </p>
+  )}
                 </div>
               </div>
 
@@ -293,10 +303,11 @@ const NewJobForm = ({ onSubmitJob }: NewJobFormProps) => {
                   <Label htmlFor="jd">Job Description</Label>
                   <Textarea
                     id="jd"
-                    placeholder="We are seeking a versatile and proactive Software Engineer to design, develop, test, and deploy high-quality software solutions."
+                    placeholder="Kindly Provide additional information about the job"
                     rows={6}
                     {...register("jd")}
                   />
+
                 </div>
               </div>
 

@@ -34,7 +34,6 @@ const JobCard = ({
     deadLine
 } : Job ) => {
 
-    const date = createdAt? new Date(createdAt).toISOString().split("T")[0]: createdAt;
     const ddate = deadLine? new Date(deadLine).toISOString().split("T")[0]: deadLine;
 
     return (
@@ -45,7 +44,7 @@ const JobCard = ({
                     <CardDescription className="gap-2 text-[#8b949e]  flex items-start flex-col">
                          <p>{companyName}</p>
                                                  {createdAt && (
-                            <span className="flex items-center gap-1"><ImClock className="text-green-600"/> <p>{formatRelativeTime(date)}</p></span>
+                            <span className="flex items-center gap-1"><ImClock className="text-green-600"/> <p>{formatRelativeTime(createdAt)}</p></span>
                         )}
                     </CardDescription>
                     <CardAction>

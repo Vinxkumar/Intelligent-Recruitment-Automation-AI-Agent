@@ -33,23 +33,18 @@ import newJobs from "@/services/newJob";
 import AlertMsg from "@/context/Alert";
 
 // ---- Schema --------------------------------------------------------------
-// Field names/enum values here are deliberately identical to the Job
-// interface, including the "JOUINUER" typo in experience — fix that at the
-// source (the enum, likely shared with your Spring Boot backend) rather
-// than patching around it here, since it'll otherwise cause a mismatch
-// between what the UI shows and what the DB/API actually stores.
 
 const jobFormSchema = z.object({
   title: z.string().min(2, "Role is required"),
   companyName: z.string().min(2, "Company name is required"),
   companyEmail: z.string().email("Enter a valid email"),
   pQualification: z.string().min(1, "Preferred qualification is required"),
-mQualification: z.string().min(1, "Minimum qualification is required"),
-jd: z.string().optional(),
+  mQualification: z.string().min(1, "Minimum qualification is required"),
+  jd: z.string().optional(),
   // Raw comma-separated input from the textarea; split into string[] in
   // onSubmit before being sent, to match the backend's List<String>.
   techStackInput: z.string().min(1, "Tech stack is required"),
-  experience: z.enum(["FRESHER", "JOUINUER", "INTERMEDIATE", "SENIOR"], {
+  expRange: z.enum(["FRESHER", "JUNIOR", "INTERMEDIATE", "SENIOR"], {
     error: "Select an experience level",
   }),
   location: z.string().optional(),
@@ -71,7 +66,7 @@ jd: z.string().optional(),
     .refine((val) => !val || /^[0-9]+$/.test(val), {
       message: "Vacancies must be a number",
     }),
-  deadLine: z.string().optional(), // <input type="date"> gives "YYYY-MM-DD" — sent as-is, matches java.util.Date/LocalDate cleanly
+  deadLine: z.string().optional(),
 });
 
 type JobFormValues = z.infer<typeof jobFormSchema>;
@@ -94,10 +89,6 @@ const NewJobForm = ({ onSubmitJob }: NewJobFormProps) => {
     formState: { errors },
   } = useForm<JobFormValues>({
     resolver: zodResolver(jobFormSchema),
-    // Seeding every field — especially the three Select-backed enums — with
-    // a defined value on first render. Without this, field.value starts as
-    // `undefined` (uncontrolled) and flips to a string once picked
-    // (controlled), which is what triggers the Base UI warning.
     defaultValues: {
       title: "",
       companyName: "",
@@ -106,7 +97,7 @@ const NewJobForm = ({ onSubmitJob }: NewJobFormProps) => {
       mQualification: "",
       jd: "",
       techStackInput: "",
-      experience: "" as JobFormValues["experience"],
+      expRange: "" as JobFormValues["expRange"],
       location: "",
       compensation: "",
       empType: "" as JobFormValues["empType"],
@@ -131,7 +122,7 @@ const NewJobForm = ({ onSubmitJob }: NewJobFormProps) => {
         .split(",")
         .map((name) => name.trim())
         .filter(Boolean),
-      experience: data.experience,
+      expRange: data.expRange,
       location: data.location || undefined,
       compensation: data.compensation || undefined,
       empType: data.empType,
@@ -144,9 +135,9 @@ const NewJobForm = ({ onSubmitJob }: NewJobFormProps) => {
       if (onSubmitJob) {
         await onSubmitJob(job);
       } else {
-        setIsSubmitting(true)
+        setIsSubmitting(true);
         const res = await newJobs(job);
-        if(res!=null) {
+        if (res != null) {
           setSubmitted(true);
         }
       }
@@ -158,17 +149,11 @@ const NewJobForm = ({ onSubmitJob }: NewJobFormProps) => {
     } finally {
       setIsSubmitting(false);
       setTimeout(() => {
-  setSubmitted(false);
-}, 5000);
+        setSubmitted(false);
+      }, 5000);
     }
   };
 
-  // if(Submitted) {
-  //   return(
-
-  //   )
-  // } 
- 
   return (
     <div className="w-full flex items-center justify-center h-full border-0">
       {Submitted && (
@@ -219,7 +204,6 @@ const NewJobForm = ({ onSubmitJob }: NewJobFormProps) => {
                     placeholder="m@example.com"
                     {...register("companyEmail")}
                     required
-
                   />
                   {errors.companyEmail && (
                     <p className="text-red-600 text-sm mt-1">
@@ -288,13 +272,12 @@ const NewJobForm = ({ onSubmitJob }: NewJobFormProps) => {
                     rows={6}
                     {...register("mQualification")}
                     required
-
                   />
-                    {errors.mQualification && (
-    <p className="text-red-600 text-sm mt-1">
-      {errors.mQualification.message}
-    </p>
-  )}
+                  {errors.mQualification && (
+                    <p className="text-red-600 text-sm mt-1">
+                      {errors.mQualification.message}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -307,7 +290,6 @@ const NewJobForm = ({ onSubmitJob }: NewJobFormProps) => {
                     rows={6}
                     {...register("jd")}
                   />
-
                 </div>
               </div>
 
@@ -328,26 +310,25 @@ const NewJobForm = ({ onSubmitJob }: NewJobFormProps) => {
                 </div>
 
                 <div className="w-[50%]">
-                  <Label htmlFor="experience">
+                  <Label htmlFor="expRange">
                     Experience <span className="text-red-600">*</span>
                   </Label>
                   <Controller
-                    name="experience"
+                    name="expRange"
                     control={control}
                     render={({ field }) => (
                       <Select
                         onValueChange={field.onChange}
                         value={field.value}
                       >
-                        <SelectTrigger id="experience" className="w-full">
+                        <SelectTrigger id="expRange" className="w-full">
                           <SelectValue placeholder="experience" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
                             <SelectLabel>Experience</SelectLabel>
                             <SelectItem value="FRESHER">Fresher</SelectItem>
-                            {/* value matches the Job interface's "JOUINUER" typo — fix in the shared enum, not here */}
-                            <SelectItem value="JOUINUER">Junior</SelectItem>
+                            <SelectItem value="JUNIOR">Junior</SelectItem>
                             <SelectItem value="INTERMEDIATE">
                               Intermediate
                             </SelectItem>
@@ -357,9 +338,9 @@ const NewJobForm = ({ onSubmitJob }: NewJobFormProps) => {
                       </Select>
                     )}
                   />
-                  {errors.experience && (
+                  {errors.expRange && (
                     <p className="text-red-600 text-sm mt-1">
-                      {errors.experience.message}
+                      {errors.expRange.message}
                     </p>
                   )}
                 </div>

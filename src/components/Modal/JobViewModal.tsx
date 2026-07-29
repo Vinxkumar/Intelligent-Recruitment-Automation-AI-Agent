@@ -1,5 +1,5 @@
 import type { Job } from "@/types/Job";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import {
   Dialog,
   DialogContent,
@@ -13,7 +13,7 @@ import {
 import { Button } from "../../../@/components/ui/button";
 import { formatEnumLabel } from "../../../@/components/EnumFormat"; // adjust path
 import { formatRelativeTime } from "../../../@/components/TimeFormat"; // adjust path
-
+import ApplyModal from "../ApplyModal";
 interface JobViewModalProps extends Job {
   trigger: ReactNode; // whatever element should open this modal, e.g. <JobCard {...job} />
   onApply?: () => void;
@@ -38,9 +38,12 @@ const JobViewModal = ({
   trigger,
   onApply,
 }: JobViewModalProps) => {
+
+  const [applyOpen, setApplyOpen] = useState(false);
+
   return (
     <Dialog>
-      <DialogTrigger asChild>{trigger}</DialogTrigger>
+      <DialogTrigger >{trigger}</DialogTrigger>
 
       <DialogContent className="flex max-h-[85vh] max-w-lg flex-col p-0">
         <DialogHeader className="px-6 pt-6">
@@ -115,19 +118,29 @@ const JobViewModal = ({
         </div>
 
         <DialogFooter className="gap-2 border-t px-6 py-4">
-          <DialogClose asChild>
+          {!applyOpen && (
+            <>
+          <DialogClose>
             <Button variant="outline" className="cursor-pointer">
               Close
             </Button>
-          </DialogClose>
+          </DialogClose>     
           <Button
-            onClick={onApply}
+            onClick={()=>setApplyOpen(true)}
             className="bg-black text-white cursor-pointer hover:bg-gray-900/90"
           >
             Apply
-          </Button>
+          </Button>      </>           
+          )}
+
+
         </DialogFooter>
       </DialogContent>
+            <Dialog open={applyOpen} onOpenChange={setApplyOpen}>
+        <DialogContent className="max-w-sm p-6">
+          <ApplyModal onClose={() => setApplyOpen(false)} />
+        </DialogContent>
+      </Dialog>
     </Dialog>
   );
 };
